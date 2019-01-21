@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: springBootApp
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: mateusz
+Implementation-Vendor-Id: OneSpringProject
+Build-Jdk: 1.8.0_181
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/springBootAppNew
+Created-By: Maven Integration for Eclipse
+

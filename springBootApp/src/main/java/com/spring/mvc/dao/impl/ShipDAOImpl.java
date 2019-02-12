@@ -1,6 +1,7 @@
 package com.spring.mvc.dao.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,11 +18,12 @@ public class ShipDAOImpl implements ShipDAO{
 	
 	@PersistenceContext	
 	private EntityManager entityManager;
-
+	
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<TblShip> getAllList() {
-		// TODO Auto-generated method stub
-		return null;
+		String HQL  = "FROM TblShip as s ORDER BY s.shipid";
+		return (List<TblShip>) entityManager.createQuery(HQL).getResultList();
 	}
 
 	@Override

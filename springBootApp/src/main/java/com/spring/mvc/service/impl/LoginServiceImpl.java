@@ -47,7 +47,6 @@ public class LoginServiceImpl implements UserDetailsService, LoginService {
 		tbluser.setUsername(userForm.getUsername());
 		tbluser.setCountry(userForm.getCountry());
 		tbluser.setRole("ROLE_USER");
-		tbluser.setUserId(1);
 		
 		loginDAO.save(tbluser);
 	}	

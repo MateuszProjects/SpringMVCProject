@@ -4,4 +4,5 @@ import com.spring.mvc.entities.TblShip;
 
 public interface ShipDAO extends GeneralDAO<TblShip>{
 
+
 }

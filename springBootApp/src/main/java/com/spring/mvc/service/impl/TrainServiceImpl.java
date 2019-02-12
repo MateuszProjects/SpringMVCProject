@@ -2,7 +2,9 @@ package com.spring.mvc.service.impl;
 
 import org.springframework.stereotype.Service;
 
+import com.spring.mvc.service.TrainService;
+
 @Service
-public class TrainServiceImpl {
+public abstract class TrainServiceImpl implements TrainService{
 
 }

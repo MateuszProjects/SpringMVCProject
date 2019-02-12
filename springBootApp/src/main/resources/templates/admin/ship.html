@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="pl">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="/dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="/vendor/morrisjs/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+    <div id="wrapper">
+    <a href="/secure/ship/info" id="someID" style="visibility: hidden"></a>
+    
+        <th:block th:include="admin/_menuadmin"></th:block>
+		<div id="page-wrapper">
+            <div class="row">
+			   			<h5>ship</h5>
+			    <br/>
+			   <div class="container" id="divContainer">        
+				<button class="btn btn-success nBtn">New Ship</button>
+				<div class="card">
+					<div class="card-block">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th>Source</th>
+									<th>destination</th>
+									<th>Edit</th>
+									<th >Delete</th>
+								</tr>
+							</thead>
+							<tbody >
+								<tr th:each="ship :${data}">
+									<td th:text=${ship.source}></td>
+									<td th:text=${ship.destination}></td>
+									<td>
+									<a th:href="@{findOne/(id=${ship.shipid})}" class="btn btn-primary eBtn">Edit</a>
+									</td>
+									<td>
+									<a th:href="@{deleteShip/(id=${ship.shipid})}" class="btn btn-danger delBtn">Delete</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<ul class="nav nav-pills">
+							   <li class="nav-item" 
+							 th:each="i: ${#numbers.sequence(0,data.totalPages-1)}">
+								<a th:href="@{/user/secure/ship(page=${i})}" th:text="${i}" class="nav-link"
+								th:classappend="${currentPage}==${i}?'active':''" ></a>
+							</li>
+						</ul>
+					</div>
+				</div> <!-- end card -->
+				
+				<!-- @{/user/secure/saveShip} -->
+				<div class="myForm">
+				
+				    <form th:action="@{/user/secure/saveShip}" method="POST" id="shipForm" th:object="${shipForm}" >
+				    
+						<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					  <div class="modal-dialog" role="document">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <h5 class="modal-title" id="exampleModalLabel">Update or Create</h5>
+					        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					          <span aria-hidden="true">&times;</span>
+					        </button>
+					      </div>
+					      <div class="modal-body">
+					      			
+					      	   <div class="form-group">
+					            <input type="hidden" class="form-control" id="id" name="id" value="" />
+					          </div>
+					          	          
+					          <div class="form-group">
+					            <label for="source" class="col-form-label">SOURCE:</label>
+					            <input type="text" class="form-control" id="source" name="source" value="" />
+					          </div>
+					          
+					          <div class="form-group">
+					            <label for="destination" class="col-form-label">DESTINATION:</label>
+					            <input type="text" class="form-control" id="destination" name="destination" value="" />
+					          </div>
+					
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					        <button type="submit" class="btn btn-primary" >Save</button>
+					      </div>
+					    </div>
+					  </div>
+					</div>
+			 	</form>
+			</div>
+			<!-- end div myForm -->
+				
+				<!--  Modal  -->
+				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				  <div class="modal-dialog" role="document">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				      </div>
+				      <div class="modal-body">
+				        <p class="alert alert-danger">
+				        	Czy chcesz usunąć obiekt?
+				        </p>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				        <button   class="btn btn-danger" aria-hidden="true" id="delRef">Delete</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+				<!--  Modal  -->
+					
+			</div> <!-- end container -->				     
+			  </div>
+			</div>
+		</div>
+	</div>		
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    
+    <!-- jQuery - my own library -->
+    <script src="/vendor/jquery/mylib.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="/vendor/metisMenu/metisMenu.min.js"></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script src="/vendor/raphael/raphael.min.js"></script>
+    <script src="/vendor/morrisjs/morris.min.js"></script>
+    <script src="/data/morris-data.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="/dist/js/sb-admin-2.js"></script>
+</body>
+
+</html>

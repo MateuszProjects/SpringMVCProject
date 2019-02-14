@@ -1,5 +1,9 @@
 package com.spring.mvc.service;
 
-public interface FlightService {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.spring.mvc.entities.TblFlight;
+
+public interface FlightService extends JpaRepository<TblFlight, Integer>{
 
 }

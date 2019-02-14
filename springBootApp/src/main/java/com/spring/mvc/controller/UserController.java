@@ -1,9 +1,7 @@
 package com.spring.mvc.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
 
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,9 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spring.mvc.entities.TblShip;
 import com.spring.mvc.form.ShipForm;
 import com.spring.mvc.service.AccountService;
@@ -27,7 +22,6 @@ import com.spring.mvc.service.CargoTypeService;
 import com.spring.mvc.service.CompanyService;
 import com.spring.mvc.service.EmployeeService;
 import com.spring.mvc.service.FlightService;
-import com.spring.mvc.service.LoginService;
 import com.spring.mvc.service.LuggageService;
 import com.spring.mvc.service.PersonService;
 import com.spring.mvc.service.ShipService;
@@ -51,9 +45,6 @@ public class UserController {
 	private BillOfLoadingService billOfLoadingService;
 	
 	@Autowired
-	private CargoService cargoService;
-	
-	@Autowired
 	private CargoTypeService cargoTypeServis;
 	
 	@Autowired
@@ -64,15 +55,9 @@ public class UserController {
 	
 	@Autowired
 	private FlightService flightService;
-	
-	@Autowired
-	private LoginService loginService;
-	
+
 	@Autowired
 	private LuggageService luggageService;
-	
-	@Autowired
-	private PersonService personService;
 	
 	@Autowired
 	private TrainService trainService;
@@ -81,12 +66,6 @@ public class UserController {
 	private TypeService typeService;
 	
 	
-	
-	@ModelAttribute("shipForm")
-	ShipForm shipForm() {
-		return new ShipForm();
-	}
-	
 	// ************ LOGOWANIE DO APLIKACJI *********************
 	@GetMapping("/login")
 	public ModelAndView login() {
@@ -94,7 +73,6 @@ public class UserController {
 		    modelAndView.setViewName("custom-login");
 		    return modelAndView;
     }
-	// ************************************************************
 	
 	// login page
 	@GetMapping("/secure/list-details")
@@ -107,88 +85,93 @@ public class UserController {
 	
 	// *********************** ADRES ******************************
 	@GetMapping("/secure/address")
-	public ModelAndView getAddress() {
+	public ModelAndView getAddress(@RequestParam(defaultValue="0") int page) {
 		   ModelAndView modelAndView = new ModelAndView();
-		   // modelAndView.addObject("useraccounts", accountService.getAllAccount());
+		   modelAndView.addObject("address", addressService
+				   .findAll(PageRequest.of(page,4)));
 		   modelAndView.setViewName("user/address");
 		   return modelAndView;
 	}
-	// ************************************************************
 	
 	// ************************* LUGGAGE **********************************
 	@GetMapping("/secure/luggage")
-	public ModelAndView getLuggage() {
+	public ModelAndView getLuggage(@RequestParam(defaultValue="0") int page) {
 		   ModelAndView modelAndView = new ModelAndView();
-		   // modelAndView.addObject("useraccounts", accountService.getAllAccount());
+		   modelAndView.addObject("luggage", luggageService
+				   .findAll(PageRequest.of(page,4)));
 		   modelAndView.setViewName("user/luggage");
 		   return modelAndView;
 	}
-	// ************************************************************
 	
 	// ************************* CARGO **********************************
 	@GetMapping("/secure/cargo")
 	public ModelAndView getCargo(@RequestParam(defaultValue="0") int page) {
 		   ModelAndView modelAndView = new ModelAndView();
-		   //modelAndView.addObject("useraccounts", accountService.getAllAccount());
+		  // modelAndView.addObject("cargo", cargoService
+			//	   .findAll(PageRequest.of(page,4)));
 		   modelAndView.setViewName("user/cargo"); 
 		   return modelAndView;
 	}
-	// ************************************************************
 	
 	// ************************ ACCOUNT ***********************************
 	@GetMapping("/secure/account")
-	public ModelAndView getAccountDetails() {
+	public ModelAndView getAccountDetails(@RequestParam(defaultValue="0") int page) {
 			ModelAndView modelAndView = new ModelAndView();
+			//   modelAndView.addObject("cargo", accountService
+				//	   .findAll(PageRequest.of(page,4)));
 			modelAndView.setViewName("user/account");
 			return modelAndView;
 	}
-	// ************************************************************
 	
 	// ************************* CARGO TYPE **********************************
 	@GetMapping("/secure/cargotype")
-	public ModelAndView getCargoType() {
+	public ModelAndView getCargoType(@RequestParam(defaultValue="0") int page) {
 			ModelAndView modelAndView = new ModelAndView();
+			   modelAndView.addObject("cargotype", cargoTypeServis
+					   .findAll(PageRequest.of(page,4)));
 			modelAndView.setViewName("user/cargotype");
 			return modelAndView;
 	}
-	// ************************************************************
 	
 	// ************************** COMPANY *********************************
 	@GetMapping("/secure/company")
-	public ModelAndView getCompany() {
+	public ModelAndView getCompany(@RequestParam(defaultValue="0") int page) {
 			ModelAndView modelAndView = new ModelAndView();
+			   modelAndView.addObject("company", companyService
+					   .findAll(PageRequest.of(page,4)));
 			modelAndView.setViewName("user/company");
 			return modelAndView;
 	}
-	// ************************************************************
 	
 	// ************************* EMPLOYEE ***********************************
 	@GetMapping("/secure/employee")
-	public ModelAndView getEmployee() {
+	public ModelAndView getEmployee(@RequestParam(defaultValue="0") int page) {
 			ModelAndView modelAndView = new ModelAndView();
+			   modelAndView.addObject("cargo", employeeService
+					   .findAll(PageRequest.of(page,4)));
 			modelAndView.setViewName("user/employee");
 			return modelAndView;
 	}
-	// ************************************************************
 	
 	// ************************* FLIGHT ***********************************
 	@GetMapping("/secure/flight")
-	public ModelAndView getFlight() {
+	public ModelAndView getFlight(@RequestParam(defaultValue="0") int page) {
 			ModelAndView modelAndView = new ModelAndView();
+			   modelAndView.addObject("flight", flightService
+					   .findAll(PageRequest.of(page,4)));
 			modelAndView.setViewName("user/flight");
 			return modelAndView;
 	}
-	// ************************************************************
 	
 	// ************************ TRAIN ************************************
 	@GetMapping("/secure/train")
-	public ModelAndView getTrain() {
+	public ModelAndView getTrain(@RequestParam(defaultValue="0") int page) {
 			ModelAndView modelAndView = new ModelAndView();
-			// modelAndView.addObject("train", ))
+			   modelAndView.addObject("train", trainService
+					   .findAll(PageRequest.of(page,4)));
 			modelAndView.setViewName("user/train");
 			return modelAndView;
 	}
-	// ************************************************************
 	
 	// *************************** SHIP *************************************
 	@GetMapping("/secure/ship")
@@ -201,7 +184,7 @@ public class UserController {
 		  modelAndView.setViewName("user/ship");
 		  return modelAndView;
 	}
-	
+	/*
 	
 	@GetMapping("/secure/deleteShip")
 	public @ResponseBody ModelAndView getDeleteShip(@RequestParam int id){
@@ -249,54 +232,35 @@ public class UserController {
 	public Optional<TblShip> findOne(Integer id) {
 		return shipService.findById(id);
 	}
-	// ********************************************************************
-	
+	*/
 	// *********************** TYPE *************************************
 	@GetMapping("/secure/type")
-	public ModelAndView getType() {
+	public ModelAndView getType(@RequestParam(defaultValue="0") int page) {
 			ModelAndView modelAndView = new ModelAndView();
-			modelAndView.setViewName("_table");
+			   modelAndView.addObject("type", typeService
+					   .findAll(PageRequest.of(page,4)));
+			modelAndView.setViewName("user/type");
 			return modelAndView;
 	}
-	// ************************************************************
 	
-	// ****************** PERSON ******************************************
-	@GetMapping("/secure/person")
-	public ModelAndView getPerson() {
-			ModelAndView modelAndView = new ModelAndView();
-			modelAndView.setViewName("user/person");
-			return modelAndView;
-	}
-	// ************************************************************
 	
 	// *********************** BILL OF LOADING *******************************
 	@GetMapping("/secure/billofloading")
-	public ModelAndView getBillOfLoading() {
+	public ModelAndView getBillOfLoading(@RequestParam(defaultValue="0") int page) {
 			ModelAndView modelAndView = new ModelAndView();
+			   modelAndView.addObject("billofloading", billOfLoadingService
+					   .findAll(PageRequest.of(page,4)));
 			modelAndView.setViewName("user/billofloading");
 			return modelAndView;
 	}
-	// ************************************************************
-	
-	// ********************** USERS **************************************
-	@GetMapping("/secure/users")
-	public ModelAndView getUsers() {
-			ModelAndView modelAndView = new ModelAndView();
-			modelAndView.setViewName("user/users");
-			return modelAndView;
-	}
-	
-	// ************************************************************
-	
-	// ************************************************************
+
 	@GetMapping("/error")
-	public ModelAndView error() {
+	public ModelAndView error(@RequestParam(defaultValue="0") int page) {
 		    ModelAndView modelAndView = new ModelAndView();
 		    String errorMessage= "You are not authorized for the requested data.";
 		    modelAndView.addObject("errorMsg", errorMessage);
 		    modelAndView.setViewName("error");
 		    return modelAndView;
     }
-	
-	// ************************************************************
+
 }

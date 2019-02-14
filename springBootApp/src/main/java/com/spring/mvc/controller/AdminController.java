@@ -20,7 +20,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.spring.mvc.entities.TblShip;
 import com.spring.mvc.form.ShipForm;
 import com.spring.mvc.service.AccountService;
+import com.spring.mvc.service.AddressService;
+import com.spring.mvc.service.BillOfLoadingService;
+import com.spring.mvc.service.CargoService;
+import com.spring.mvc.service.CargoTypeService;
+import com.spring.mvc.service.CompanyService;
+import com.spring.mvc.service.EmployeeService;
+import com.spring.mvc.service.FlightService;
+import com.spring.mvc.service.LuggageService;
+import com.spring.mvc.service.PersonService;
 import com.spring.mvc.service.ShipService;
+import com.spring.mvc.service.TrainService;
+import com.spring.mvc.service.TypeService;
 
 @RestController
 @RequestMapping("/admin")
@@ -32,11 +43,43 @@ public class AdminController {
 	@Autowired
 	private ShipService shipService;
 	
+	@Autowired
+	private AddressService addressService;
+	
+	@Autowired
+	private BillOfLoadingService billOfLoadingService;
+	
 
+	
+	@Autowired
+	private CargoTypeService cargoTypeServis;
+	
+	@Autowired
+	private CompanyService companyService;
+	
+	@Autowired
+	private EmployeeService employeeService;
+	
+	@Autowired
+	private FlightService flightService;
+
+	@Autowired
+	private LuggageService luggageService;
+	
+	@Autowired
+	private PersonService personService;
+	
+	@Autowired
+	private TrainService trainService;
+	
+	@Autowired
+	private TypeService typeService;
+	
 	@ModelAttribute("shipForm")
 	ShipForm shipForm() {
 		return new ShipForm();
 	}
+	
 	// *********************** LOGIN PAGE **********************************
 	@GetMapping("/login")
 	public ModelAndView login() {
@@ -53,91 +96,96 @@ public class AdminController {
 		   modelAndView.setViewName("application");
 		   return modelAndView;
 	}
-	// *************************************************************************
 	
 	// ************************ ADRES ************************************
 	@GetMapping("/secure/address")
-	public ModelAndView getAddress() {
+	public ModelAndView getAddress(@RequestParam(defaultValue="0") int page) {
 		   ModelAndView modelAndView = new ModelAndView();
-		   // modelAndView.addObject("useraccounts", accountService.getAllAccount());
+		   modelAndView.addObject("address", addressService
+				   .findAll(PageRequest.of(page,4)));
 		   modelAndView.setViewName("admin/address");
 		   return modelAndView;
 	}
-	// ************************************************************
 	
 	// *********************** LUGGAGE *********************************
 	@GetMapping("/secure/luggage")
-	public ModelAndView getLuggage() {
+	public ModelAndView getLuggage(@RequestParam(defaultValue="0") int page) {
 		   ModelAndView modelAndView = new ModelAndView();
-		   // modelAndView.addObject("useraccounts", accountService.getAllAccount());
+		   modelAndView.addObject("luggageAdmin", luggageService
+				   .findAll(PageRequest.of(page,4)));
 		   modelAndView.setViewName("admin/luggage");
 		   return modelAndView;
 	}
-	// ************************************************************
 	
 	// ************************ CARGO ************************************
 	@GetMapping("/secure/cargo")
-	public ModelAndView getCargo() {
+	public ModelAndView getCargo(@RequestParam(defaultValue="0") int page) {
 		   ModelAndView modelAndView = new ModelAndView();
-		   modelAndView.addObject("useraccounts", accountService.getAllAccount());
+		 //  modelAndView.addObject("cargoAdmin", cargoService
+				 //  .findAll(PageRequest.of(page,4)));
 		   modelAndView.setViewName("admin/cargo"); 
 		   return modelAndView;
 	}
-	// ************************************************************
 	
 	// ********************* ACCOUNT ***************************************
 	@GetMapping("/secure/account")
-	public ModelAndView getAccountDetails() {
+	public ModelAndView getAccountDetails(@RequestParam(defaultValue="0") int page) {
 			ModelAndView modelAndView = new ModelAndView();
+			modelAndView.addObject("address", addressService
+					   .findAll(PageRequest.of(page,4)));
 			modelAndView.setViewName("admin/account");
 			return modelAndView;
 	}
-	// ************************************************************
 	
 	// *************************** CARGO TYPE *********************************
 	@GetMapping("/secure/cargotype")
-	public ModelAndView getCargoType() {
+	public ModelAndView getCargoType(@RequestParam(defaultValue="0") int page) {
 			ModelAndView modelAndView = new ModelAndView();
+			modelAndView.addObject("cargotypeAdmin", cargoTypeServis
+					   .findAll(PageRequest.of(page,4)));
 			modelAndView.setViewName("admin/cargotype");
 			return modelAndView;
 	}
-	// ************************************************************
 	
 	// ********************* COMPANY ***************************************
 	@GetMapping("/secure/company")
-	public ModelAndView getCompany() {
+	public ModelAndView getCompany(@RequestParam(defaultValue="0") int page) {
 			ModelAndView modelAndView = new ModelAndView();
+			modelAndView.addObject("companyAdmin", companyService
+					   .findAll(PageRequest.of(page,4)));
 			modelAndView.setViewName("admin/company");
 			return modelAndView;
 	}
-	// ************************************************************
 	
 	// ************************** EMPLOYEE **********************************
 	@GetMapping("/secure/employee")
-	public ModelAndView getEmployee() {
+	public ModelAndView getEmployee(@RequestParam(defaultValue="0") int page) {
 			ModelAndView modelAndView = new ModelAndView();
+			modelAndView.addObject("employeeAdmin", employeeService
+					   .findAll(PageRequest.of(page,4)));
 			modelAndView.setViewName("admin/employee");
 			return modelAndView;
 	}
-	// ************************************************************
 	
 	// *********************** FLIGHT *************************************
 	@GetMapping("/secure/flight")
-	public ModelAndView getFlight() {
+	public ModelAndView getFlight(@RequestParam(defaultValue="0") int page) {
 			ModelAndView modelAndView = new ModelAndView();
+			modelAndView.addObject("flightAdmin", flightService
+					   .findAll(PageRequest.of(page,4)));	
 			modelAndView.setViewName("admin/flight");
 			return modelAndView;
 	}
-	// ************************************************************
 	
 	// ************************ TRAIN ************************************
 	@GetMapping("/secure/train")
-	public ModelAndView getTrain() {
+	public ModelAndView getTrain(@RequestParam(defaultValue="0") int page) {
 			ModelAndView modelAndView = new ModelAndView();
+			modelAndView.addObject("trainAdmin", trainService
+					   .findAll(PageRequest.of(page,4)));
 			modelAndView.setViewName("admin/train");
 			return modelAndView;
 	}
-	// ************************************************************
 	
 	// ****************************** SHIP **************************************
 	@GetMapping("/secure/ship")
@@ -159,7 +207,7 @@ public class AdminController {
 		  modelAndView.addObject("data", shipService.
 				  findAll(PageRequest.of(0,4)));
 		  
-		 modelAndView.setViewName("_table");
+		 modelAndView.setViewName("admin/ship");
 		 return modelAndView;
 	}
 	
@@ -217,39 +265,34 @@ public class AdminController {
 	}
 
 	@GetMapping("/secure/type")
-	public ModelAndView getType() {
+	public ModelAndView getType(@RequestParam(defaultValue="0") int page) {
 			ModelAndView modelAndView = new ModelAndView();
-			modelAndView.setViewName("_table");
+			modelAndView.addObject("typeAdmin", typeService
+					   .findAll(PageRequest.of(page,4)));
+			modelAndView.setViewName("admin/type");
 			return modelAndView;
 	}
-	// ********************************************************************
 	
 	// **************************** PERSON ********************************
 	@GetMapping("/secure/person")
-	public ModelAndView getPerson() {
+	public ModelAndView getPerson(@RequestParam(defaultValue="0") int page) {
 			ModelAndView modelAndView = new ModelAndView();
+			modelAndView.addObject("personAdmin", personService
+					   .findAll(PageRequest.of(page,4)));
 			modelAndView.setViewName("admin/person");
 			return modelAndView;
 	}
-	// ************************************************************
 	
 	// *********************** BILL OF LOADING *************************************
 	@GetMapping("/secure/billofloading")
-	public ModelAndView getBillOfLoading() {
+	public ModelAndView getBillOfLoading(@RequestParam(defaultValue="0") int page) {
 			ModelAndView modelAndView = new ModelAndView();
+			modelAndView.addObject("billOfLoadingAdmin", billOfLoadingService
+					   .findAll(PageRequest.of(page,4)));
 			modelAndView.setViewName("admin/billofloading");
 			return modelAndView;
 	}
-	// ************************************************************
-	
-	// ************************** USERS **********************************
-	@GetMapping("/secure/users")
-	public ModelAndView getUsers() {
-			ModelAndView modelAndView = new ModelAndView();
-			modelAndView.setViewName("admin/users");
-			return modelAndView;
-	}
-	// ************************************************************
+
 	
 	@GetMapping("/error")
 	public ModelAndView error() {
@@ -260,6 +303,4 @@ public class AdminController {
 		    return modelAndView;
     }
 	
-
-
 }

@@ -1,5 +1,9 @@
 package com.spring.mvc.service;
 
-public interface LuggageService {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.spring.mvc.entities.TblLuggage;
+
+public interface LuggageService extends JpaRepository<TblLuggage, Integer>{
 
 }

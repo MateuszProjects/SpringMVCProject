@@ -5,6 +5,6 @@ import org.springframework.stereotype.Service;
 import com.spring.mvc.service.FlightService;
 
 @Service
-public class FlightServiceImpl implements FlightService{
+public abstract class FlightServiceImpl implements FlightService{
 
 }

@@ -5,6 +5,6 @@ import org.springframework.stereotype.Service;
 import com.spring.mvc.service.EmployeeService;
 
 @Service
-public class EmployeeServiceImpl implements EmployeeService{
+public abstract class EmployeeServiceImpl implements EmployeeService{
 
 }

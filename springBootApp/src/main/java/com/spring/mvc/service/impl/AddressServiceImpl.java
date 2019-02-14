@@ -5,6 +5,6 @@ import org.springframework.stereotype.Service;
 import com.spring.mvc.service.AddressService;
 
 @Service
-public class AddressServiceImpl implements AddressService{
+public abstract class AddressServiceImpl implements AddressService{
 
 }

@@ -5,6 +5,6 @@ import org.springframework.stereotype.Service;
 import com.spring.mvc.service.BillOfLoadingService;
 
 @Service
-public class BillOfLoadingServiceImpl implements BillOfLoadingService{
+public abstract class BillOfLoadingServiceImpl implements BillOfLoadingService{
 
 }

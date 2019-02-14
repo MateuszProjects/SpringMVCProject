@@ -5,6 +5,6 @@ import org.springframework.stereotype.Service;
 import com.spring.mvc.service.CargoTypeService;
 
 @Service
-public class CargoTypeServiceImpl implements CargoTypeService{
+public abstract class CargoTypeServiceImpl implements CargoTypeService{
 
 }

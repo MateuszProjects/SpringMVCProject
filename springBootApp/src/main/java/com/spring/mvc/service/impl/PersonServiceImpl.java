@@ -5,6 +5,6 @@ import org.springframework.stereotype.Service;
 import com.spring.mvc.service.PersonService;
 
 @Service
-public class PersonServiceImpl implements PersonService{
+public abstract class PersonServiceImpl implements PersonService{
 
 }

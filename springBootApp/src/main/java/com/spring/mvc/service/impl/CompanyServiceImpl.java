@@ -5,6 +5,6 @@ import org.springframework.stereotype.Service;
 import com.spring.mvc.service.CompanyService;
 
 @Service
-public class CompanyServiceImpl implements CompanyService {
+public abstract class CompanyServiceImpl implements CompanyService {
 
 }

@@ -78,7 +78,7 @@ public class UserController {
 	@GetMapping("/secure/list-details")
 	public ModelAndView getAccount() {
 		   ModelAndView modelAndView = new ModelAndView();
-		   modelAndView.addObject("useraccounts", accountService.getAllAccount());
+		   modelAndView.addObject("useraccounts", accountService.findAll());
 		   modelAndView.setViewName("application");
 		   return modelAndView;
 	}

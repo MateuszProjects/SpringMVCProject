@@ -4,18 +4,21 @@ import java.util.Date;
 
 public class LuggageForm {
 
-	private int id;
+	private Integer id;
 	private Date contentdesc;
 	private double weight;
 	
-	
+	public LuggageForm() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public LuggageForm(int id, Date contentdesc, double weight) {
 		super();
 		this.id = id;
 		this.contentdesc = contentdesc;
 		this.weight = weight;
 	}
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 	public void setId(int id) {

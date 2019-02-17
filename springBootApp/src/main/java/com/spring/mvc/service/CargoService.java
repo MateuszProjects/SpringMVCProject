@@ -8,7 +8,6 @@ import org.springframework.security.access.annotation.Secured;
 import com.spring.mvc.entities.TblCargo;
 import com.spring.mvc.entities.TblUserapplication;
 
-public interface CargoService{
-	 @Secured ({"ROLE_ADMIN"})
-	 public abstract List<TblUserapplication> getAllCargo();
+public interface CargoService extends JpaRepository<TblCargo, Integer>{
+
 }

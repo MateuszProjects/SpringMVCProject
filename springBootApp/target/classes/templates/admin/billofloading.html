@@ -39,7 +39,7 @@
 <body>
 
     <div id="wrapper">
-        <th:block th:include="admin/_menu"></th:block>
+        <th:block th:include="admin/_menuadmin"></th:block>
 		<div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
@@ -47,35 +47,35 @@
 			
 			    <br/>
 			   <div class="container" id="divContainer">        
-				<button class="btn btn-success nBtn">New Ship</button>
+				<button class="btn btn-success nBtn">New BillOfLoading</button>
 				<div class="card">
 					<div class="card-block">
 						<table class="table table-hover">
 							<thead>
 								<tr>
-									<th>Source</th>
-									<th>destination</th>
+									<th>Value</th>
+									<th>Payed</th>
 									<th>Edit</th>
 									<th >Delete</th>
 								</tr>
 							</thead>
 							<tbody >
-								<tr th:each="ship :${data}">
-									<td th:text=${ship.source}></td>
-									<td th:text=${ship.destination}></td>
+								<tr th:each="billofloadingObj :${billofloading}">
+									<td th:text=${billofloadingObj.value}></td>
+									<td th:text=${billofloadingObj.payed}></td>
 									<td>
-									<a th:href="@{findOne/(id=${ship.shipid})}" class="btn btn-primary eBtn">Edit</a>
+									<a th:href="@{findOneBillOfLoading/(id=${ship.idbillofloading})}" class="btn btn-primary eBtn">Edit</a>
 									</td>
 									<td>
-									<a th:href="@{deleteShip/(id=${ship.shipid})}" class="btn btn-danger delBtn">Delete</a>
+									<a th:href="@{deleteBillOfLoading/(id=${ship.shipid})}" class="btn btn-danger delBtn">Delete</a>
 									</td>
 								</tr>
 							</tbody>
 						</table>
 						<ul class="nav nav-pills">
 							   <li class="nav-item" 
-							 th:each="i: ${#numbers.sequence(0,data.totalPages-1)}">
-								<a th:href="@{/user/secure/ship(page=${i})}" th:text="${i}" class="nav-link"
+							 th:each="i: ${#numbers.sequence(0,billofloading.totalPages-1)}">
+								<a th:href="@{/admin/secure/billofloading(page=${i})}" th:text="${i}" class="nav-link"
 								th:classappend="${currentPage}==${i}?'active':''" ></a>
 							</li>
 						</ul>

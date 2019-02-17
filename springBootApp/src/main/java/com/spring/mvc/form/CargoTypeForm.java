@@ -2,7 +2,21 @@ package com.spring.mvc.form;
 
 public class CargoTypeForm {
 	
+	private Integer id;
 	private String cargotypes;
+
+	public CargoTypeForm() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public String getCargotypes() {
 		return cargotypes;

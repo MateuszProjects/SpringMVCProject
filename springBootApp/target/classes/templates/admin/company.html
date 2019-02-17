@@ -47,27 +47,25 @@
 			
 			    <br/>
 			   <div class="container" id="divContainer">        
-				<button class="btn btn-success nBtn">New Ship</button>
+				<button class="btn btn-success nBtn">New Company</button>
 				<div class="card">
 					<div class="card-block">
 						<table class="table table-hover">
 							<thead>
 								<tr>
 									<th>Source</th>
-									<th>destination</th>
 									<th>Edit</th>
 									<th >Delete</th>
 								</tr>
 							</thead>
 							<tbody >
-								<tr th:each="ship :${data}">
-									<td th:text=${ship.source}></td>
-									<td th:text=${ship.destination}></td>
+								<tr th:each="companyAdminObj :${companyAdmin}">
+									<td th:text=${companyAdminObj.source}></td>
 									<td>
-									<a th:href="@{findOne/(id=${ship.shipid})}" class="btn btn-primary eBtn">Edit</a>
+									<a th:href="@{findOneCompany/(id=${companyAdminObj.companyid})}" class="btn btn-primary eBtn">Edit</a>
 									</td>
 									<td>
-									<a th:href="@{deleteShip/(id=${ship.shipid})}" class="btn btn-danger delBtn">Delete</a>
+									<a th:href="@{deleteCompany/(id=${companyAdminObj.companyid})}" class="btn btn-danger delBtn">Delete</a>
 									</td>
 								</tr>
 							</tbody>
@@ -75,7 +73,7 @@
 						<ul class="nav nav-pills">
 							   <li class="nav-item" 
 							 th:each="i: ${#numbers.sequence(0,data.totalPages-1)}">
-								<a th:href="@{/user/secure/ship(page=${i})}" th:text="${i}" class="nav-link"
+								<a th:href="@{/admin/secure/company(page=${i})}" th:text="${i}" class="nav-link"
 								th:classappend="${currentPage}==${i}?'active':''" ></a>
 							</li>
 						</ul>
@@ -85,7 +83,7 @@
 				<!-- @{/user/secure/saveShip} -->
 				<div class="myForm">
 				
-				    <form th:action="@{/user/secure/saveShip}" method="POST" id="shipForm" th:object="${shipForm}" >
+				    <form th:action="@{/admin/secure/saveShip}" method="POST" id="companyid" th:object="${companyForm}" >
 				    
 						<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 					  <div class="modal-dialog" role="document">

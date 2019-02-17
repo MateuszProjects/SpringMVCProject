@@ -6,6 +6,7 @@ import javax.xml.crypto.Data;
 
 public class TrainForm {
 	
+	private Integer id;
 	private Date startTime;
 	private Date endDate;
 	private String source;
@@ -15,6 +16,11 @@ public class TrainForm {
 	private String clas;
 	private double price;
 	
+	public TrainForm() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public TrainForm(Date startTime, Date endDate, String source, String destination, int seats, double cargoweight,
 			String clas, double price) {
 		super();
@@ -28,6 +34,14 @@ public class TrainForm {
 		this.price = price;
 	}
 	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public Date getStartTime() {
 		return startTime;
 	}

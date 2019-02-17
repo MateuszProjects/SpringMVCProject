@@ -1,15 +1,7 @@
 package com.spring.mvc.form;
 
-public class CargoForm {
-	private Integer id;
-
-	
-	
-	
-	public CargoForm() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+public class AccountForm {
+	public Integer id;
 
 	public Integer getId() {
 		return id;

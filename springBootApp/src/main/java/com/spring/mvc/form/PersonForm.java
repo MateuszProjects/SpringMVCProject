@@ -2,15 +2,29 @@ package com.spring.mvc.form;
 
 public class PersonForm {
 
+	private Integer id;
 	private String name;
 	private String surname;
 	private String email;
 	
+	public PersonForm() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public PersonForm(String name, String surname, String email) {
 		super();
 		this.name = name;
 		this.surname = surname;
 		this.email = email;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getName() {

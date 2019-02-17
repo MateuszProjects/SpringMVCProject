@@ -5,6 +5,10 @@ public class CustomerForm {
 	private String surname;
 	private String password;
 	
+	public CustomerForm() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public String getName() {
 		return name;
 	}

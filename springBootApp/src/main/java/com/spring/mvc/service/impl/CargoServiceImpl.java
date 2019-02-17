@@ -8,14 +8,6 @@ import com.spring.mvc.dao.CargoDAO;
 import com.spring.mvc.entities.TblUserapplication;
 import com.spring.mvc.service.CargoService;
 
-public  class CargoServiceImpl implements CargoService{
-
-	@Autowired
-	private CargoDAO cargoDAO;
-	
-	@Override
-	public List<TblUserapplication> getAllCargo() {
-		return null;
-	}
+public abstract  class CargoServiceImpl implements CargoService{
 
 }

@@ -2,12 +2,17 @@ package com.spring.mvc.form;
 
 public class AddressForm {
 
+	private Integer id;
 	private String street;
 	private int number;
 	private String zipcode;
 	private String privince;
 	private String region;
 	
+	public AddressForm() {
+		super();
+	}
+
 	public AddressForm(String street, int number, String zipcode, String privince, String region) {
 		super();
 		this.street = street;
@@ -55,6 +60,14 @@ public class AddressForm {
 
 	public void setRegion(String region) {
 		this.region = region;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	
 	

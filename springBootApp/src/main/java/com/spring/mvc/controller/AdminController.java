@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -161,12 +162,6 @@ public class AdminController {
 		return new EmployeeForm();
 	}
 	// *********************** LOGIN PAGE **********************************
-	/*@GetMapping("/login")
-	public ModelAndView login() {
-		    ModelAndView modelAndView = new ModelAndView();
-		    modelAndView.setViewName("custom-login");
-		    return modelAndView;
-    }*/
 	
 	// login page
 	@GetMapping("/secure/list-details")
@@ -283,6 +278,7 @@ public class AdminController {
 	}
 	
 	// ************************ CARGO ************************************
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/secure/cargo")
 	public ModelAndView getCargo(@RequestParam(defaultValue="0") int page) {
 		   ModelAndView modelAndView = new ModelAndView();
@@ -292,13 +288,14 @@ public class AdminController {
 		   return modelAndView;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(
 			value = "/secure/cargoNewUpdate",
 			method=RequestMethod.POST,
 			consumes = {"application/x-www-form-urlencoded;charset=UTF-8"} )
 	public  ModelAndView saveUpdateCargo(@ModelAttribute("cargoForm") CargoForm cargoForm) {
 		ModelAndView modelAndView = new ModelAndView();
-		 modelAndView.addObject("data", cargoService.
+		 modelAndView.addObject("cargoAdmin", cargoService.
 				  findAll(PageRequest.of(0,4)));  
 		  
 		modelAndView.setViewName("admin/cargo");
@@ -317,7 +314,7 @@ public class AdminController {
 		return modelAndView;
 	}
 
-	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/secure/findOneCargo")
 	@ResponseBody
 	public Optional<TblCargo> findOneCargo(Integer id) {
@@ -325,15 +322,17 @@ public class AdminController {
 	}
 	
 	// ********************* ACCOUNT ***************************************
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/secure/account")
 	public ModelAndView getAccountDetails(@RequestParam(defaultValue="0") int page) {
 			ModelAndView modelAndView = new ModelAndView();
-			modelAndView.addObject("account", accountService
+			modelAndView.addObject("accountAdmin", accountService
 					   .findAll(PageRequest.of(page,4)));
-			modelAndView.setViewName("admin/account");
+			modelAndView.setViewName("admin/users");
 			return modelAndView;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/secure/deleteAccount")
 	public @ResponseBody ModelAndView getDeleteAccount(@RequestParam int id){
 		ModelAndView modelAndView = new ModelAndView();
@@ -341,10 +340,11 @@ public class AdminController {
 		modelAndView.addObject("accountAdmin", accountService.
 				  findAll(PageRequest.of(0,4)));
 		  
-		 modelAndView.setViewName("admin/account");
+		 modelAndView.setViewName("admin/users");
 		 return modelAndView;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(
 			value="/secure/accountNewUpdate",
 			method=RequestMethod.POST,
@@ -354,7 +354,7 @@ public class AdminController {
 		  modelAndView.addObject("accountAdmin", accountService.
 				  findAll(PageRequest.of(0,4)));  
 		  
-		modelAndView.setViewName("admin/account");
+		modelAndView.setViewName("admin/users");
 		TblUserapplication tblUserapplication = new TblUserapplication();
 		
 		if(accountForm.getId() != null)
@@ -371,6 +371,7 @@ public class AdminController {
 	}
 	
 	// metoda AJAX
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/secure/findOne")
 	@ResponseBody
 	public Optional<TblUserapplication> findOneAccount(Integer id) {
@@ -379,6 +380,7 @@ public class AdminController {
 	
 	
 	// *************************** CARGO TYPE *********************************
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/secure/cargotype")
 	public ModelAndView getCargoType(@RequestParam(defaultValue="0") int page) {
 			ModelAndView modelAndView = new ModelAndView();
@@ -388,6 +390,7 @@ public class AdminController {
 			return modelAndView;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/secure/deleteType")
 	public @ResponseBody ModelAndView getDeleteCargoType(@RequestParam int id){
 		ModelAndView modelAndView = new ModelAndView();
@@ -399,6 +402,7 @@ public class AdminController {
 		 return modelAndView;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(
 			value="/secure/cargoTypeNewUpdate",
 			method=RequestMethod.POST,
@@ -425,6 +429,7 @@ public class AdminController {
 	}
 	
 	// metoda AJAX
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/secure/findOneCargoType")
 	@ResponseBody
 	public Optional<TblCargotype> findOneCargoType(Integer id) {
@@ -432,6 +437,7 @@ public class AdminController {
 	}
 	
 	// ********************* COMPANY ***************************************
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/secure/company")
 	public ModelAndView getCompany(@RequestParam(defaultValue="0") int page) {
 			ModelAndView modelAndView = new ModelAndView();
@@ -441,6 +447,7 @@ public class AdminController {
 			return modelAndView;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/secure/deleteCompany")
 	public @ResponseBody ModelAndView getDeleteCompany(@RequestParam int id){
 		ModelAndView modelAndView = new ModelAndView();
@@ -452,6 +459,7 @@ public class AdminController {
 		 return modelAndView;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(
 			value="/secure/companyNewUpdate",
 			method=RequestMethod.POST,
@@ -477,12 +485,14 @@ public class AdminController {
 	}
 	
 	// metoda AJAX
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/secure/findOneCompany")
 	@ResponseBody
 	public Optional<TblCompany> findOneCompany(Integer id) {
 		return companyService.findById(id);
 	}
 	// ************************** EMPLOYEE **********************************
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/secure/employee")
 	public ModelAndView getEmployee(@RequestParam(defaultValue="0") int page) {
 			ModelAndView modelAndView = new ModelAndView();
@@ -492,6 +502,7 @@ public class AdminController {
 			return modelAndView;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/secure/deleteEmployee")
 	public @ResponseBody ModelAndView getDeleteEmployee(@RequestParam int id){
 		ModelAndView modelAndView = new ModelAndView();
@@ -499,11 +510,13 @@ public class AdminController {
 		  modelAndView.addObject("employeeAdmin", employeeService.
 				  findAll(PageRequest.of(0,4)));
 		  
-		 modelAndView.setViewName("admin/ship");
+		 modelAndView.setViewName("admin/employee");
 		 return modelAndView;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(
+			value="/secure/employeeNewUpdate",
 			method=RequestMethod.POST,
 			consumes = {"application/x-www-form-urlencoded;charset=UTF-8"} )
 	public  ModelAndView saveUpdateEmployee(@ModelAttribute("employeeForm") EmployeeForm employeeForm) {
@@ -511,7 +524,7 @@ public class AdminController {
 		  modelAndView.addObject("employeeAdmin", employeeService.
 				  findAll(PageRequest.of(0,4)));  
 		  
-		modelAndView.setViewName("admin/ship");
+		modelAndView.setViewName("admin/employee");
 		TblEmployee tblEmployee = new TblEmployee();
 		
 		if(employeeForm.getId() != null)
@@ -528,6 +541,7 @@ public class AdminController {
 	}
 	
 	// metoda AJAX
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/secure/findOneEmployee")
 	@ResponseBody
 	public Optional<TblEmployee> findOneEmployee(Integer id) {
@@ -535,6 +549,7 @@ public class AdminController {
 	}
 	
 	// *********************** FLIGHT *************************************
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/secure/flight")
 	public ModelAndView getFlight(@RequestParam(defaultValue="0") int page) {
 			ModelAndView modelAndView = new ModelAndView();
@@ -544,6 +559,7 @@ public class AdminController {
 			return modelAndView;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/secure/deleteflight")
 	public @ResponseBody ModelAndView getDeleteFlight(@RequestParam int id){
 		ModelAndView modelAndView = new ModelAndView();
@@ -555,6 +571,7 @@ public class AdminController {
 		 return modelAndView;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(
 			value="/secure/flightNewUpdate",
 			method=RequestMethod.POST,
@@ -580,6 +597,7 @@ public class AdminController {
 	}
 	
 	// metoda AJAX
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/secure/findOneFlight")
 	@ResponseBody
 	public Optional<TblFlight> findOneFlight(Integer id) {
@@ -587,6 +605,7 @@ public class AdminController {
 	}
 	
 	// ************************ TRAIN ************************************
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/secure/train")
 	public ModelAndView getTrain(@RequestParam(defaultValue="0") int page) {
 			ModelAndView modelAndView = new ModelAndView();
@@ -596,6 +615,7 @@ public class AdminController {
 			return modelAndView;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/secure/deleteTrain")
 	public @ResponseBody ModelAndView getDeleteTrain(@RequestParam int id){
 		ModelAndView modelAndView = new ModelAndView();
@@ -607,6 +627,7 @@ public class AdminController {
 		 return modelAndView;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(
 			value="/secure/trainNewUpdate",
 			method=RequestMethod.POST,
@@ -633,6 +654,7 @@ public class AdminController {
 	}
 	
 	// metoda AJAX
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/secure/findOneTrain")
 	@ResponseBody
 	public Optional<TblTrain> findOneTrain(Integer id) {
@@ -640,6 +662,7 @@ public class AdminController {
 	}
 	
 	// ****************************** SHIP **************************************
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/secure/ship")
 	public ModelAndView getShip(@RequestParam(defaultValue="0") int page) {
 		  ModelAndView modelAndView = new ModelAndView();
@@ -647,11 +670,13 @@ public class AdminController {
 				  findAll(PageRequest.of(page,4)));
 		  
 		  modelAndView.addObject("currentPage", page);
+		  
 		  modelAndView.setViewName("admin/ship");
+		  
 		  return modelAndView;
 	}
 	
-	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/secure/deleteShip")
 	public @ResponseBody ModelAndView getDeleteShip(@RequestParam int id){
 		ModelAndView modelAndView = new ModelAndView();
@@ -663,16 +688,17 @@ public class AdminController {
 		 return modelAndView;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(
 			value="/secure/shipNewUpdate",
 			method=RequestMethod.POST,
 			consumes = {"application/x-www-form-urlencoded;charset=UTF-8"} )
 	public  ModelAndView saveUpdateShip(@ModelAttribute("shipForm") ShipForm shipForm) {
 		ModelAndView modelAndView = new ModelAndView();
+		
 		  modelAndView.addObject("data", shipService.
 				  findAll(PageRequest.of(0,4)));  
-		  
-		modelAndView.setViewName("admin/ship");
+		 
 		TblShip tblShip = new TblShip();
 		
 		if(shipForm.getId() != null)
@@ -687,16 +713,21 @@ public class AdminController {
 			e.printStackTrace();
 		}
 		
+		modelAndView.setViewName("admin/ship");
+		
 		return modelAndView;
 	}
 	
 	// metoda AJAX
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/secure/findOneShip")
 	@ResponseBody
 	public Optional<TblShip> findOneShip(Integer id) {
 		return shipService.findById(id);
 	}
-
+	
+	// **************************** TYPE ********************************
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/secure/type")
 	public ModelAndView getType(@RequestParam(defaultValue="0") int page) {
 			ModelAndView modelAndView = new ModelAndView();
@@ -707,6 +738,7 @@ public class AdminController {
 	}
 	
 	// **************************** PERSON ********************************
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/secure/person")
 	public ModelAndView getPerson(@RequestParam(defaultValue="0") int page) {
 			ModelAndView modelAndView = new ModelAndView();
@@ -716,6 +748,7 @@ public class AdminController {
 			return modelAndView;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/secure/deletePerson")
 	public @ResponseBody ModelAndView getDeletePerson(@RequestParam int id){
 		ModelAndView modelAndView = new ModelAndView();
@@ -727,6 +760,7 @@ public class AdminController {
 		 return modelAndView;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(
 			value="/secure/personNewUpdate",
 			method=RequestMethod.POST,
@@ -753,6 +787,7 @@ public class AdminController {
 	}
 	
 	// metoda AJAX
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/secure/findOnePerson")
 	@ResponseBody
 	public Optional<TblPerson> findOnePerson(Integer id) {
@@ -760,6 +795,7 @@ public class AdminController {
 	}
 	
 	// *********************** BILL OF LOADING *************************************
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/secure/billofloading")
 	public ModelAndView getBillOfLoading(@RequestParam(defaultValue="0") int page) {
 			ModelAndView modelAndView = new ModelAndView();
@@ -769,6 +805,7 @@ public class AdminController {
 			return modelAndView;
 	}
 
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/secure/deleteBillOfLoading")
 	public @ResponseBody ModelAndView getDeleteBillOfLoading(@RequestParam int id){
 		ModelAndView modelAndView = new ModelAndView();
@@ -780,6 +817,7 @@ public class AdminController {
 		 return modelAndView;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(
 			value="/secure/billOfLoadingNewUpdate",
 			method=RequestMethod.POST,
@@ -806,12 +844,14 @@ public class AdminController {
 	}
 	
 	// metoda AJAX
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/secure/findOneBillOfLoading")
 	@ResponseBody
 	public Optional<TblBillofloading> findOneBillOfLoading(Integer id) {
 		return billOfLoadingService.findById(id);
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/error")
 	public ModelAndView error() {
 		    ModelAndView modelAndView = new ModelAndView();

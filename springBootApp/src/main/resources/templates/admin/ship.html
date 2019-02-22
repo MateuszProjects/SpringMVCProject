@@ -54,18 +54,30 @@
 							<table class="table table-hover">
 								<thead>
 									<tr>
-										<th>Source</th>
+										<th>Start Date</th>
+										<th>enddate</th>
+										<th>source</th>
 										<th>destination</th>
-										
+										<th>seates</th>
+										<th>cargoweight</th>
+										<th>class</th>
+										<th>price</th>
+
 										<th>Edit</th>
 										<th>Delete</th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr th:each="ship :${data}">
-										<td th:text=${ship.source}></td>
-										<td th:text=${ship.destination}></td>
-										
+									<tr th:each="shipObj :${data}">
+											<td th:text=${shipObj.startdate}></td>
+											<td th:text=${shipObj.enddate}></td>
+											<td th:text=${shipObj.source}></td>
+											<td th:text=${shipObj.destination}></td>
+											<td th:text=${shipObj.seats}></td>
+											<td th:text=${shipObj.cargoweiht}></td>
+											<td th:text=${shipObj.class}></td>
+											<td th:text=${shipObj.price}></td>
+
 										<td><a th:href="@{findOneShip/(id=${ship.shipid})}"
 											class="btn btn-primary eBtn">Edit</a></td>
 										<td><a th:href="@{deleteShip/(id=${ship.shipid})}"
@@ -110,17 +122,51 @@
 													value="" />
 											</div>
 
-											<div class="form-group">
-												<label for="source" class="col-form-label">SOURCE:</label> <input
-													type="text" class="form-control" id="source" name="source"
-													value="" />
-											</div>
+												<div class="form-group">
+													<label for="startdate" class="col-form-label">START
+														DATE:</label> <input type="text" class="form-control"
+														id="startdate" name="startdate" value="" />
+												</div>
 
-											<div class="form-group">
-												<label for="destination" class="col-form-label">DESTINATION:</label>
-												<input type="text" class="form-control" id="destination"
-													name="destination" value="" />
-											</div>
+												<div class="form-group">
+													<label for="enddate" class="col-form-label">END
+														DATE:</label> <input type="text" class="form-control" id="enddate"
+														name="enddate" value="" />
+												</div>
+												<div class="form-group">
+													<label for="source" class="col-form-label">SOURCE:</label>
+													<input type="text" class="form-control" id="source"
+														name="source" value="" />
+												</div>
+
+												<div class="form-group">
+													<label for="destination" class="col-form-label">DESTINATION:</label>
+													<input type="text" class="form-control" id="destination"
+														name="destination" value="" />
+												</div>
+												<div class="form-group">
+													<label for="seates" class="col-form-label">SEATES:</label>
+													<input type="text" class="form-control" id="seates"
+														name="seates" value="" />
+												</div>
+
+												<div class="form-group">
+													<label for="cargoweight" class="col-form-label">CARGO
+														WEIGHT:</label> <input type="text" class="form-control"
+														id="cargoweight" name="cargoweight" value="" />
+												</div>
+												<div class="form-group">
+													<label for="class" class="col-form-label">CLASS:</label> <input
+														type="text" class="form-control" id="soclassurce"
+														name="class" value="" />
+												</div>
+
+												<div class="form-group">
+													<label for="price" class="col-form-label">PRICE:</label> <input
+														type="text" class="form-control" id="price" name="price"
+														value="" />
+												</div>
+
 
 										</div>
 										<div class="modal-footer">
@@ -181,23 +227,33 @@
 				var href = $(this).attr('href');
 				var text = $(this).text();
 
-
 				if (text == 'Edit') {
 					$.get(href, function(ship, status) {
 						$('.myForm #id').val(ship.shipid);
+						$('.myForm #startdate').val(ship.startdate);
+						$('.myForm #enddate').val(ship.enddate);
 						$('.myForm #source').val(ship.source);
 						$('.myForm #destination').val(ship.destination);
+						$('.myForm #seates').val(ship.seates);
+						$('.myForm #cargoweiht').val(ship.cargoweiht);
+						$('.myForm #price').val(ship.price);
+						
 						$('.myForm #exampleModal').modal();
 					});
 
-
 				} else {
 					$('.myForm #id').val('');
+					$('.myForm #startdate').val('');
+					$('.myForm #enddate').val('');
 					$('.myForm #source').val('');
 					$('.myForm #destination').val('');
+					$('.myForm #seates').val('');
+					$('.myForm #cargoweiht').val('');
+					$('.myForm #class').val('');
+					$('.myForm #price').val('');
 
 					$('#myModal #delRef').attr('href', href);
-				    $('.myForm #exampleModal').modal();
+					$('.myForm #exampleModal').modal();
 				}
 
 			});

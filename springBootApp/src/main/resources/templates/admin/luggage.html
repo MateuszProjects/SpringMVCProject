@@ -185,16 +185,16 @@
 				var text = $(this).text();
 
 				if (text == 'Edit') {
-					$.get(href, function(ship, status) {
-						$('.myForm #id').val(ship.shipid);
-						$('.myForm #source').val(ship.source);
-						$('.myForm #destination').val(ship.destination);
+					$.get(href, function(luggage, status) {
+						$('.myForm #id').val(luggage.luggageid);
+						$('.myForm #contentdesc').val(luggage.contentdesc);
+						$('.myForm #weight').val(luggage.weight);
 						$('.myForm #exampleModal').modal();
 					});
 
 				} else {
 					$('.myForm #id').val('');
-					$('.myForm #source').val('');
+					$('.myForm #contentdesc').val('');
 					$('.myForm #destination').val('');
 
 					$('#myModal #delRef').attr('href', href);

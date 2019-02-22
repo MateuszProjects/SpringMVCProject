@@ -57,7 +57,7 @@
 										<tr>
 											<th>Type</th>
 											<th>Edit</th>
-											
+
 											<th>Delete</th>
 										</tr>
 									</thead>
@@ -86,7 +86,7 @@
 						<!-- @{/user/secure/saveShip} -->
 						<div class="myForm">
 
-							<form th:action="@{/admin/secure/saveShip}" method="POST"
+							<form th:action="@{/admin/secure/typeNewUpdate}" method="POST"
 								id="shipForm" th:object="${shipForm}">
 
 								<div class="modal fade" id="exampleModal" tabindex="-1"
@@ -110,9 +110,9 @@
 												</div>
 
 												<div class="form-group">
-													<label for="type" class="col-form-label">TYPE:</label>
-													<input type="text" class="form-control" id="type"
-														name="source" value="" />
+													<label for="type" class="col-form-label">TYPE:</label> <input
+														type="text" class="form-control" id="type" name="source"
+														value="" />
 												</div>
 
 											</div>
@@ -164,7 +164,7 @@
 
 	<!-- jQuery -->
 	<script src="/vendor/jquery/jquery.min.js"></script>
-	
+
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('.nBtn, .table .eBtn').on('click', function(event) {
@@ -182,7 +182,7 @@
 
 				} else {
 					$('.myForm #type').val('');
-					
+
 					$('#myModal #delRef').attr('href', href);
 					$('.myForm #exampleModal').modal();
 				}

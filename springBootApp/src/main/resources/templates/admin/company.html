@@ -54,14 +54,15 @@
 								<table class="table table-hover">
 									<thead>
 										<tr>
-											<th>Source</th>
+											<th>Company Name</th>
+											
 											<th>Edit</th>
 											<th>Delete</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr th:each="companyAdminObj :${companyAdmin}">
-											<td th:text=${companyAdminObj.source}></td>
+											<td th:text=${companyAdminObj.companyname}></td>
 											<td><a
 												th:href="@{findOneCompany/(id=${companyAdminObj.companyid})}"
 												class="btn btn-primary eBtn">Edit</a></td>
@@ -85,7 +86,7 @@
 						<!-- @{/user/secure/saveShip} -->
 						<div class="myForm">
 
-							<form th:action="@{/admin/secure/saveShip}" method="POST"
+							<form th:action="@{/admin/secure/companyNewUpdate}" method="POST"
 								id="companyid" th:object="${companyForm}">
 
 								<div class="modal fade" id="exampleModal" tabindex="-1"
@@ -109,15 +110,9 @@
 												</div>
 
 												<div class="form-group">
-													<label for="source" class="col-form-label">SOURCE:</label>
-													<input type="text" class="form-control" id="source"
-														name="source" value="" />
-												</div>
-
-												<div class="form-group">
-													<label for="destination" class="col-form-label">DESTINATION:</label>
-													<input type="text" class="form-control" id="destination"
-														name="destination" value="" />
+													<label for="companyname" class="col-form-label">Company Name:</label>
+													<input type="text" class="form-control" id="companyname"
+														name="companyname" value="" />
 												</div>
 
 											</div>
@@ -179,17 +174,15 @@
 				var text = $(this).text();
 
 				if (text == 'Edit') {
-					$.get(href, function(ship, status) {
-						$('.myForm #id').val(ship.shipid);
-						$('.myForm #source').val(ship.source);
-						$('.myForm #destination').val(ship.destination);
+					$.get(href, function(company, status) {
+						$('.myForm #id').val(company.companyid);
+						$('.myForm #companyname').val(company.companyname);
 						$('.myForm #exampleModal').modal();
 					});
 
 				} else {
 					$('.myForm #id').val('');
-					$('.myForm #source').val('');
-					$('.myForm #destination').val('');
+					$('.myForm #companyname').val('');
 
 					$('#myModal #delRef').attr('href', href);
 					$('.myForm #exampleModal').modal();

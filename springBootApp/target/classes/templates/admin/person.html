@@ -65,11 +65,14 @@
 									</thead>
 									<tbody>
 										<tr th:each="personAdminObj :${personAdmin}">
-											<td th:text=${ship.source}></td>
-											<td th:text=${ship.destination}></td>
-											<td><a th:href="@{findOne/(id=${ship.shipid})}"
+											<td th:text=${personAdminObj.name}></td>
+											<td th:text=${personAdminObj.surname}></td>
+											<td th:text=${personAdminObj.email}></td>
+											<td><a
+												th:href="@{findOne/(id=${personAdminObj.customerid})}"
 												class="btn btn-primary eBtn">Edit</a></td>
-											<td><a th:href="@{deleteShip/(id=${ship.shipid})}"
+											<td><a
+												th:href="@{deleteShip/(id=${personAdminObj.customerid})}"
 												class="btn btn-danger delBtn">Delete</a></td>
 										</tr>
 									</tbody>
@@ -112,17 +115,21 @@
 												</div>
 
 												<div class="form-group">
-													<label for="source" class="col-form-label">SOURCE:</label>
-													<input type="text" class="form-control" id="source"
-														name="source" value="" />
+													<label for="name" class="col-form-label">NAME:</label> <input
+														type="text" class="form-control" id="name" name="name"
+														value="" />
 												</div>
 
 												<div class="form-group">
-													<label for="destination" class="col-form-label">DESTINATION:</label>
-													<input type="text" class="form-control" id="destination"
-														name="destination" value="" />
+													<label for="surname" class="col-form-label">SURNAME:</label>
+													<input type="text" class="form-control" id="surname"
+														name="surname" value="" />
 												</div>
-
+												<div class="form-group">
+													<label for="email" class="col-form-label">EMAIL:</label>
+													<input type="text" class="form-control" id="email"
+														name="email" value="" />
+												</div>
 											</div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-secondary"
@@ -182,17 +189,19 @@
 				var text = $(this).text();
 
 				if (text == 'Edit') {
-					$.get(href, function(ship, status) {
-						$('.myForm #id').val(ship.shipid);
-						$('.myForm #source').val(ship.source);
-						$('.myForm #destination').val(ship.destination);
+					$.get(href, function(person, status) {
+						$('.myForm #id').val(person.shipid);
+						$('.myForm #name').val(person.name);
+						$('.myForm #surname').val(person.surname);
+						$('.myForm #email').val(person.email);
 						$('.myForm #exampleModal').modal();
 					});
 
 				} else {
 					$('.myForm #id').val('');
-					$('.myForm #source').val('');
-					$('.myForm #destination').val('');
+					$('.myForm #name').val('');
+					$('.myForm #surname').val('');
+					$('.myForm #email').val('');
 
 					$('#myModal #delRef').attr('href', href);
 					$('.myForm #exampleModal').modal();

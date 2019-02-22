@@ -55,6 +55,7 @@
 									<thead>
 										<tr>
 											<th>cargotypes</th>
+											
 											<th>Edit</th>
 											<th>Delete</th>
 										</tr>
@@ -111,12 +112,6 @@
 													<label for="source" class="col-form-label">SOURCE:</label>
 													<input type="text" class="form-control" id="source"
 														name="source" value="" />
-												</div>
-
-												<div class="form-group">
-													<label for="destination" class="col-form-label">DESTINATION:</label>
-													<input type="text" class="form-control" id="destination"
-														name="destination" value="" />
 												</div>
 
 											</div>
@@ -178,17 +173,16 @@
 				var text = $(this).text();
 
 				if (text == 'Edit') {
-					$.get(href, function(ship, status) {
-						$('.myForm #id').val(ship.shipid);
-						$('.myForm #source').val(ship.source);
-						$('.myForm #destination').val(ship.destination);
+					$.get(href, function(cargoType, status) {
+						$('.myForm #id').val(cargoType.cargotypeid);
+						$('.myForm #cargotypes').val(cargoType.cargotypes);
+						
 						$('.myForm #exampleModal').modal();
 					});
 
 				} else {
 					$('.myForm #id').val('');
-					$('.myForm #source').val('');
-					$('.myForm #destination').val('');
+					$('.myForm #cargotypes').val('');
 
 					$('#myModal #delRef').attr('href', href);
 					$('.myForm #exampleModal').modal();

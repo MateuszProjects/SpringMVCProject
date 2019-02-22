@@ -66,10 +66,10 @@
 									<tbody>
 										<tr th:each="address :${addressAdmin}">
 											<td th:text=${address.street}></td>
-											<td th:text=${address.nubmer}></td>
+											<td th:text=${address.number}></td>
 											<td th:text=${address.zipcode}></td>
 											<td th:text=${address.province}></td>
-											<td th:text=${address.destination}></td>
+		
 											<td><a th:href="@{findOne/(id=${address.addressid})}"
 												class="btn btn-primary eBtn">Edit</a></td>
 											<td><a
@@ -92,7 +92,7 @@
 
 						<div class="myForm">
 
-							<form th:action="@{/user/secure/saveAddress}" method="POST"
+							<form th:action="@{/admin/secure/addressNewUpdate}" method="POST"
 								id="addressForm" th:object="${AddressForm}">
 
 								<div class="modal fade" id="exampleModal" tabindex="-1"
@@ -191,34 +191,32 @@
 					function() {
 						$('.nBtn, .table .delBtn').on('click',
 								function(event) {
-							
 									event.preventDefault();
-									
 									var href = $(this).attr('href');
 									var text = $(this).text();
 									
-									console.log(href);
-									console.log(text);
-									
 									if (text == 'Edit') {
-										$.get(href, function(ship, status) {
-											$('.myForm #id').val(ship.shipid);
-											$('.myForm #source').val(
-													ship.source);
-											$('.myForm #destination').val(
-													ship.destination);
+										$.get(href, function(address, status) {
+											$('.myForm #id').val(address.addressid);
+											$('.myForm #street').val(address.street);
+											$('.myForm #nubmer').val(address.number);
+											$('.myForm #zipcode').val(address.zipcode);
+											$('.myForm #province').val(address.province);
+											$('.myForm #destination').val(address.destination);
 										});
 
 										$('.myForm #exampleModal').modal();
 
 									} else {
-										//$('.myForm #id').val('');
-										//$('.myForm #source').val('');
-										//$('.myForm #destination').val('');
-										//$('.myForm #exampleModal').modal();
+										$('.myForm #id').val('');
+										$('.myForm #street').val('');
+										$('.myForm #nubmer').val('');
+										$('.myForm #zipcode').val('');
+										$('.myForm #province').val('');
+										$('.myForm #destination').val('');
+									
 
-										$('#myModal #delRef').attr('href',
-												"/admin/secure/addressNewUpdate");
+										$('#myModal #delRef').attr('href', herf);
 										$('.myForm #exampleModal').modal();
 									}
 								});

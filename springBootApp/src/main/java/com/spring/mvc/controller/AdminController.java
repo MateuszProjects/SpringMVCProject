@@ -1,5 +1,8 @@
 package com.spring.mvc.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -190,13 +193,13 @@ public class AdminController {
 	}
 
 	@GetMapping("/secure/deleteAddress")
-	public @ResponseBody ModelAndView getDeleteAddress(@RequestParam int id) {
+	public String getDeleteAddress(@RequestParam int id) {
 		ModelAndView modelAndView = new ModelAndView();
 		addressService.deleteById(id);
 		modelAndView.addObject("addressAdmin", addressService.findAll(PageRequest.of(0, 4)));
 
 		modelAndView.setViewName("admin/address");
-		return modelAndView;
+		return "admin/address";
 	}
 
 	@RequestMapping(value = "/secure/addressNewUpdate", method = RequestMethod.POST, consumes = {
@@ -205,13 +208,13 @@ public class AdminController {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("addressAdmin", addressService.findAll(PageRequest.of(0, 4)));
 
-		modelAndView.setViewName("admin/ship");
+		modelAndView.setViewName("admin/address");
 		TblAddress tblAddress = new TblAddress();
 
 		if (addressForm.getId() != null)
-			tblAddress.setAddressid(1);
+			tblAddress.setAddressid(addressForm.getId());
 
-		tblAddress.setNumber(addressForm.getNumber());
+		tblAddress.setNumber(Integer.parseInt(addressForm.getNumber()));
 		tblAddress.setProvince(addressForm.getPrivince());
 		tblAddress.setRegion(addressForm.getRegion());
 		tblAddress.setStreet(addressForm.getStreet());
@@ -558,7 +561,7 @@ public class AdminController {
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/secure/flightNewUpdate", method = RequestMethod.POST, consumes = {
 			"application/x-www-form-urlencoded;charset=UTF-8" })
-	public ModelAndView saveUpdateFlight(@ModelAttribute("flightForm") FlightForm flightForm) {
+	public ModelAndView saveUpdateFlight(@ModelAttribute("flightForm") FlightForm flightForm) throws ParseException {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("flightAdmin", flightService.findAll(PageRequest.of(0, 4)));
 
@@ -572,6 +575,8 @@ public class AdminController {
 		tblFlight.setPrice(flightForm.getPrice());
 		tblFlight.setSeats(flightForm.getSeats());
 		tblFlight.setSource(flightForm.getSource());
+		Date flightDate = new SimpleDateFormat("dd-MM-yyyy").parse(flightForm.getStartTime());
+		tblFlight.setFlightdate(flightDate);
 
 		try {
 			flightService.save(tblFlight);
@@ -847,15 +852,15 @@ public class AdminController {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("personAdmin", billOfLoadingService.findAll(PageRequest.of(0, 4)));
 
-		modelAndView.setViewName("admin/ship");
+		modelAndView.setViewName("admin/billofloading");
 		TblBillofloading tblBillofloading = new TblBillofloading();
 
 		if (billOfLoadingForm.getId() != null)
 			tblBillofloading.setIdbillofloading(billOfLoadingForm.getId());
 
 		tblBillofloading.setPayed(billOfLoadingForm.getPayed());
-		tblBillofloading.setValue(billOfLoadingForm.getValue());
-		
+		tblBillofloading.setValue(Double.parseDouble(billOfLoadingForm.getValue().replaceAll(" ", ".")));
+
 		try {
 			billOfLoadingService.save(tblBillofloading);
 		} catch (Exception e) {

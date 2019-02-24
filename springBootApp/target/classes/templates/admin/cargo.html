@@ -77,7 +77,9 @@
 											<td th:text=${cargoAdminObj.shipid}></td>
 											<td th:text=${cargoAdminObj.flightid}></td>
 											<td th:text=${cargoAdminObj.trainid}></td>
-											<td><a th:href="@{findOneCargo/(id=${cargoAdminObj.cargoid})}"
+
+											<td><a
+												th:href="@{findOneCargo/(id=${cargoAdminObj.cargoid})}"
 												class="btn btn-primary eBtn">Edit</a></td>
 										</tr>
 									</tbody>
@@ -249,28 +251,6 @@
 					$('#myModal #delRef').attr('href', href);
 					$('.myForm #exampleModal').modal();
 				}
-
-			});
-
-			$('.table .delBtn').on('click', function(event) {
-				event.preventDefault();
-
-				var href = $(this).attr('href');
-				$('#myModal').modal();
-				$("#delRef").on('click', function(event) {
-					$.ajax({
-						type : "GET",
-						url : href,
-						success : function(result) {
-							alert(result);
-							$("#divContainer").html(result);
-							$(".modal-backdrop").remove();
-						},
-						error : function(e) {
-							alert("blad" + e);
-						}
-					});
-				});
 
 			});
 

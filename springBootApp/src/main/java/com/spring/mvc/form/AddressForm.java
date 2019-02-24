@@ -4,7 +4,7 @@ public class AddressForm {
 
 	private Integer id;
 	private String street;
-	private int number;
+	private String number;
 	private String zipcode;
 	private String privince;
 	private String region;
@@ -13,14 +13,6 @@ public class AddressForm {
 		super();
 	}
 
-	public AddressForm(String street, int number, String zipcode, String privince, String region) {
-		super();
-		this.street = street;
-		this.number = number;
-		this.zipcode = zipcode;
-		this.privince = privince;
-		this.region = region;
-	}
 
 	public String getStreet() {
 		return street;
@@ -30,13 +22,16 @@ public class AddressForm {
 		this.street = street;
 	}
 
-	public int getNumber() {
+
+	public String getNumber() {
 		return number;
 	}
 
-	public void setNumber(int number) {
+
+	public void setNumber(String number) {
 		this.number = number;
 	}
+
 
 	public String getZipcode() {
 		return zipcode;

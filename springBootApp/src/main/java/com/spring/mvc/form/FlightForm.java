@@ -1,11 +1,9 @@
 package com.spring.mvc.form;
 
-import java.util.Date;
 
 public class FlightForm {
 	private Integer id;
-	private Date startTime;
-	private Date endDate;
+	private String startTime;
 	private String source;
 	private String destination;
 	private int seats;
@@ -24,18 +22,13 @@ public class FlightForm {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public Date getStartTime() {
+	public String getStartTime() {
 		return startTime;
 	}
-	public void setStartTime(Date startTime) {
+	public void setStartTime(String startTime) {
 		this.startTime = startTime;
 	}
-	public Date getEndDate() {
-		return endDate;
-	}
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
-	}
+
 	public String getSource() {
 		return source;
 	}

@@ -60,7 +60,6 @@
 										<th>destination</th>
 										<th>seates</th>
 										<th>cargoweight</th>
-										<th>class</th>
 										<th>price</th>
 
 										<th>Edit</th>
@@ -70,17 +69,16 @@
 								<tbody>
 									<tr th:each="shipObj :${data}">
 											<td th:text=${shipObj.startdate}></td>
-											<td th:text=${shipObj.enddate}></td>
+											<td th:text=${shipObj.edndate}></td>
 											<td th:text=${shipObj.source}></td>
 											<td th:text=${shipObj.destination}></td>
 											<td th:text=${shipObj.seats}></td>
-											<td th:text=${shipObj.cargoweiht}></td>
-											<td th:text=${shipObj.class}></td>
+											<td th:text=${shipObj.cargoweight}></td>
 											<td th:text=${shipObj.price}></td>
 
-										<td><a th:href="@{findOneShip/(id=${ship.shipid})}"
+										<td><a th:href="@{findOneShip/(id=${shipObj.shipid})}"
 											class="btn btn-primary eBtn">Edit</a></td>
-										<td><a th:href="@{deleteShip/(id=${ship.shipid})}"
+										<td><a th:href="@{deleteShip/(id=${shipObj.shipid})}"
 											class="btn btn-danger delBtn">Delete</a></td>
 									</tr>
 								</tbody>
@@ -268,9 +266,8 @@
 						type : "GET",
 						url : href,
 						success : function(result) {
-							alert(result);
-							$("#divContainer").html(result);
 							$(".modal-backdrop").remove();
+							$('#myModal').modal("toggle");
 						},
 						error : function(e) {
 							alert("blad" + e);

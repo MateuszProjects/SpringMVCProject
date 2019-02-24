@@ -54,7 +54,7 @@
 								<table class="table table-hover">
 									<thead>
 										<tr>
-											<th>cargotypes</th>
+											<th>cargotypeses</th>
 											
 											<th>Edit</th>
 											<th>Delete</th>
@@ -62,10 +62,10 @@
 									</thead>
 									<tbody>
 										<tr th:each="cargotypeAdminObj :${cargotypeAdmin}">
-											<td th:text=${cargotypeAdminObj.cargotypes}></td>
-											<td><a th:href="@{findOneCargoType/(id=${ship.shipid})}"
+											<td th:text=${cargotypeAdminObj.cargotypeses}></td>
+											<td><a th:href="@{findOneCargoType/(id=${cargotypeAdminObj.cargotypeid})}"
 												class="btn btn-primary eBtn">Edit</a></td>
-											<td><a th:href="@{deleteType/(id=${ship.shipid})}"
+											<td><a th:href="@{deleteCargoType/(id=${cargotypeAdminObj.cargotypeid})}"
 												class="btn btn-danger delBtn">Delete</a></td>
 										</tr>
 									</tbody>
@@ -109,9 +109,9 @@
 												</div>
 
 												<div class="form-group">
-													<label for="source" class="col-form-label">SOURCE:</label>
-													<input type="text" class="form-control" id="source"
-														name="source" value="" />
+													<label for="cargotypes" class="col-form-label">Cargotypes:</label>
+													<input type="text" class="form-control" id="cargotypes"
+														name="cargotypes" value="" />
 												</div>
 
 											</div>
@@ -175,7 +175,7 @@
 				if (text == 'Edit') {
 					$.get(href, function(cargoType, status) {
 						$('.myForm #id').val(cargoType.cargotypeid);
-						$('.myForm #cargotypes').val(cargoType.cargotypes);
+						$('.myForm #cargotypes').val(cargoType.cargotypeses);
 						
 						$('.myForm #exampleModal').modal();
 					});
@@ -194,15 +194,15 @@
 				event.preventDefault();
 
 				var href = $(this).attr('href');
+				
 				$('#myModal').modal();
 				$("#delRef").on('click', function(event) {
 					$.ajax({
 						type : "GET",
 						url : href,
 						success : function(result) {
-							alert(result);
-							$("#divContainer").html(result);
 							$(".modal-backdrop").remove();
+							$('#myModal').modal("toggle");
 						},
 						error : function(e) {
 							alert("blad" + e);

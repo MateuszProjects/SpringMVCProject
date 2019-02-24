@@ -200,9 +200,8 @@
 						type : "GET",
 						url : href,
 						success : function(result) {
-							alert(result);
-							$("#divContainer").html(result);
 							$(".modal-backdrop").remove();
+							$('#myModal').modal("toggle");
 						},
 						error : function(e) {
 							alert("blad" + e);

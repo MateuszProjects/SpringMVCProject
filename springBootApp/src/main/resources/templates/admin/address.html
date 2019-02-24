@@ -58,7 +58,7 @@
 											<th>Zip code</th>
 											<th>Province</th>
 											<th>Region</th>
-											
+
 											<th>Edit</th>
 											<th>Delete</th>
 										</tr>
@@ -69,8 +69,10 @@
 											<td th:text=${address.number}></td>
 											<td th:text=${address.zipcode}></td>
 											<td th:text=${address.province}></td>
-		
-											<td><a th:href="@{findOne/(id=${address.addressid})}"
+											<td th:text=${address.region}></td>
+
+											<td><a
+												th:href="@{findAddress/(id=${address.addressid})}"
 												class="btn btn-primary eBtn">Edit</a></td>
 											<td><a
 												th:href="@{deleteAddress/(id=${address.addressid})}"
@@ -123,7 +125,7 @@
 
 												<div class="form-group">
 													<label for="number" class="col-form-label">Number:</label>
-													<input type="text" class="form-control" id="number"
+													<input type="text" class="form-control" id="number" required="required"
 														name="number" value="" />
 												</div>
 
@@ -138,7 +140,11 @@
 													<input type="text" class="form-control" id="province"
 														name="province" value="" />
 												</div>
-
+												<div class="form-group">
+													<label for="region" class="col-form-label">Region:</label>
+													<input type="text" class="form-control" id="region"
+														name="region" value="" />
+												</div>
 											</div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-secondary"
@@ -187,63 +193,60 @@
 		<script src="/vendor/jquery/jquery.min.js"></script>
 
 		<script>
-			$(document).ready(
-					function() {
-						$('.nBtn, .table .delBtn').on('click',
-								function(event) {
-									event.preventDefault();
-									var href = $(this).attr('href');
-									var text = $(this).text();
-									
-									if (text == 'Edit') {
-										$.get(href, function(address, status) {
-											$('.myForm #id').val(address.addressid);
-											$('.myForm #street').val(address.street);
-											$('.myForm #nubmer').val(address.number);
-											$('.myForm #zipcode').val(address.zipcode);
-											$('.myForm #province').val(address.province);
-											$('.myForm #destination').val(address.destination);
-										});
+			$(document).ready(function() {
+				$('.nBtn, .table .eBtn').on('click', function(event) {
+					event.preventDefault();
+					var href = $(this).attr('href');
+					var text = $(this).text();
 
-										$('.myForm #exampleModal').modal();
+					if (text == 'Edit') {
+						$.get(href, function(address, status) {
+							$('.myForm #id').val(address.addressid);
+							$('.myForm #street').val(address.street);
+							$('.myForm #nubmer').val(address.number);
+							$('.myForm #zipcode').val(address.zipcode);
+							$('.myForm #province').val(address.province);
 
-									} else {
-										$('.myForm #id').val('');
-										$('.myForm #street').val('');
-										$('.myForm #nubmer').val('');
-										$('.myForm #zipcode').val('');
-										$('.myForm #province').val('');
-										$('.myForm #destination').val('');
-									
-
-										$('#myModal #delRef').attr('href', herf);
-										$('.myForm #exampleModal').modal();
-									}
-								});
-
-						$('.table .delBtn').on('click', function(event) {
-							event.preventDefault();
-
-							var href = $(this).attr('href');
-							$('#myModal').modal();
-							$("#delRef").on('click', function(event) {
-								$.ajax({
-									type : "GET",
-									url : href,
-									success : function(result) {
-										alert(result);
-										$("#divContainer").html(result);
-										$(".modal-backdrop").remove();
-									},
-									error : function(e) {
-										alert("blad" + e);
-									}
-								});
-							});
-
+							$('.myForm #exampleModal').modal();
 						});
+					} else {
+						$('.myForm #id').val('');
+						$('.myForm #street').val('');
+						$('.myForm #nubmer').val('');
+						$('.myForm #zipcode').val('');
+						$('.myForm #province').val('');
+						$('.myForm #destination').val('');
 
+						$('#myModal #delRef').attr('href', href);
+
+						$('.myForm #exampleModal').modal();
+					}
+				});
+
+				$('.table .delBtn').on('click', function(event) {
+					event.preventDefault();
+
+					var href = $(this).attr('href');
+					$('#myModal').modal();
+
+					$("#delRef").on('click', function(event) {
+						$.ajax({
+							type : "GET",
+							url : href,
+							success : function(result) {
+								$(".modal-backdrop").remove();
+								$('#myModal').modal("toggle");
+							},
+							error : function(e) {
+								alert("blad" + e);
+								$('#myModal').modal();
+							}
+						});
 					});
+
+				});
+
+			});
 		</script>
 
 		<!-- Bootstrap Core JavaScript -->

@@ -3,16 +3,29 @@ package com.spring.mvc.form;
 public class AddressForm {
 
 	private Integer id;
+	private Integer emplId;
+	private Integer customerId;
 	private String street;
 	private String number;
 	private String zipcode;
 	private String privince;
 	private String region;
-	
-	public AddressForm() {
-		super();
+
+	public Integer getEmplId() {
+		return emplId;
 	}
 
+	public void setEmplId(Integer emplId) {
+		this.emplId = emplId;
+	}
+
+	public Integer getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(Integer customerId) {
+		this.customerId = customerId;
+	}
 
 	public String getStreet() {
 		return street;
@@ -22,16 +35,13 @@ public class AddressForm {
 		this.street = street;
 	}
 
-
 	public String getNumber() {
 		return number;
 	}
 
-
 	public void setNumber(String number) {
 		this.number = number;
 	}
-
 
 	public String getZipcode() {
 		return zipcode;
@@ -64,7 +74,5 @@ public class AddressForm {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
-	
-	
+
 }

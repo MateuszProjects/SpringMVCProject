@@ -57,7 +57,7 @@
 											<th>Flight Date</th>
 											<th>source</th>
 											<th>destination</th>
-											<th>seates</th>
+											<th>seat</th>
 											<th>price</th>
 
 											<th>Edit</th>
@@ -77,7 +77,7 @@
 												th:href="@{findOneFlight/(id=${flightAdminObj.flightid})}"
 												class="btn btn-primary eBtn">Edit</a></td>
 											<td><a
-												th:href="@{deleteflight/(id=${flightAdminObj.flightid})}"
+												th:href="@{deleteFlight/(id=${flightAdminObj.flightid})}"
 												class="btn btn-danger delBtn">Delete</a></td>
 										</tr>
 									</tbody>
@@ -213,14 +213,15 @@
 				var text = $(this).text();
 
 				if (text == 'Edit') {
-					$.get(href, function(ship, status) {
-						$('.myForm #id').val(ship.trainid);
-						$('.myForm #startTime').val(ship.flightdate);
-						$('.myForm #source').val(ship.source);
-						$('.myForm #destination').val(ship.destination);
-						$('.myForm #seates').val(ship.seates);
-						$('.myForm #cargoweiht').val(ship.cargoweiht);
-						$('.myForm #price').val(ship.price);
+					$.get(href, function(flight, status) {
+						$('.myForm #id').val(flight.flightid);
+						$('.myForm #startTime').val(flight.flightdate);
+						$('.myForm #source').val(flight.source);
+						$('.myForm #destination').val(flight.destination);
+						$('.myForm #seates').val(flight.seats);
+						$('.myForm #cargoweight').val(flight.cargoweight);
+						$('.myForm #price').val(flight.price);
+						
 						$('.myForm #exampleModal').modal();
 					});
 
@@ -230,7 +231,7 @@
 					$('.myForm #source').val('');
 					$('.myForm #destination').val('');
 					$('.myForm #seates').val('');
-					$('.myForm #cargoweiht').val('');
+					$('.myForm #cargoweight').val('');
 					$('.myForm #price').val('');
 
 					$('#myModal #delRef').attr('href', href);

@@ -125,8 +125,8 @@
 
 												<div class="form-group">
 													<label for="number" class="col-form-label">Number:</label>
-													<input type="text" class="form-control" id="number" required="required"
-														name="number" value="" />
+													<input type="text" class="form-control" id="number"
+														required="required" name="number" value="" />
 												</div>
 
 												<div class="form-group">
@@ -145,12 +145,30 @@
 													<input type="text" class="form-control" id="region"
 														name="region" value="" />
 												</div>
+												<!-- relation one to many -->
+												<select class="form-control" id=emplId
+													name="emplId">
+													<option value="">Select Address</option>
+													<option th:each="employeeObj : ${employee}"
+														th:value="${employeeObj.emplid}"
+														th:text="${employeeObj.emplid}"></option>
+												</select> 
+												
+												<select class="form-control" id=customerId
+												
+													name="customerId">
+													<option value="">Select Customer</option>
+													<option th:each="personObj : ${person}"
+														th:value="${applicationAdminObj.customerid}"
+														th:text="${applicationAdminObj.customerid}"></option>
+												</select>
 											</div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-secondary"
 													data-dismiss="modal">Close</button>
 												<button type="submit" class="btn btn-primary">Save</button>
 											</div>
+
 										</div>
 									</div>
 								</div>
@@ -196,6 +214,7 @@
 			$(document).ready(function() {
 				$('.nBtn, .table .eBtn').on('click', function(event) {
 					event.preventDefault();
+
 					var href = $(this).attr('href');
 					var text = $(this).text();
 

@@ -5,4 +5,5 @@ import com.spring.mvc.entities.TblUser;
 
 public interface LoginDAO extends GeneralDAO<TblUser> {
 	public abstract TblUser getActiveUser(String userName);
+	public abstract TblUser getOneUser(Integer id);
 }

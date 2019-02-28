@@ -55,19 +55,20 @@
 										<tr>
 											<th>Name</th>
 											<th>Surname</th>
-											
+
 											<th>Edit</th>
 											<th>Delete</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr th:each="employeeAdminObj :${employeeAdmin}">
-
+											<td th:text=${employeeAdminObj.name}></td>
+											<td th:text=${employeeAdminObj.surname}></td>
 											<td><a
-												th:href="@{findOneEmployee/(id=${employeeAdminObj.employeeid})}"
+												th:href="@{findOneEmployee/(id=${employeeAdminObj.emplid})}"
 												class="btn btn-primary eBtn">Edit</a></td>
 											<td><a
-												th:href="@{deleteEmployee/(id=${employeeAdminObj.employeeid})}"
+												th:href="@{deleteEmployee/(id=${employeeAdminObj.emplid})}"
 												class="btn btn-danger delBtn">Delete</a></td>
 										</tr>
 									</tbody>
@@ -87,8 +88,8 @@
 						<!-- @{/user/secure/saveShip} -->
 						<div class="myForm">
 
-							<form th:action="@{/admin/secure/employeeNewUpdate}" method="POST"
-								id="shipForm" th:object="${shipForm}">
+							<form th:action="@{/admin/secure/employeeNewUpdate}"
+								method="POST" id="employeeForm" th:object="${employeeForm}">
 
 								<div class="modal fade" id="exampleModal" tabindex="-1"
 									role="dialog" aria-labelledby="exampleModalLabel"
@@ -111,9 +112,9 @@
 												</div>
 
 												<div class="form-group">
-													<label for="name" class="col-form-label">Name:</label>
-													<input type="text" class="form-control" id="name"
-														name="name" value="" />
+													<label for="name" class="col-form-label">Name:</label> <input
+														type="text" class="form-control" id="name" name="name"
+														value="" />
 												</div>
 
 												<div class="form-group">
@@ -121,6 +122,15 @@
 													<input type="text" class="form-control" id="surname"
 														name="surname" value="" />
 												</div>
+												<!-- combobox  relaction one to many-->
+
+												<select class="form-control" id=idUserApplication
+													name="idUserApplication">
+													<option value="">Select UserApplication</option>
+													<option th:each="applicationAdminObj : ${applicationAdmin}"
+														th:value="${applicationAdminObj.type}"
+														th:text="${applicationAdminObj.type}"></option>
+												</select>
 
 											</div>
 											<div class="modal-footer">
@@ -182,9 +192,10 @@
 
 				if (text == 'Edit') {
 					$.get(href, function(employee, status) {
-						$('.myForm #id').val(employee.shipid);
+						$('.myForm #id').val(employee.emplid);
 						$('.myForm #name').val(employee.name);
 						$('.myForm #surname').val(employee.surname);
+						$('.myForm #idUserApplication').val(employee.userapplicationid);
 						
 						$('.myForm #exampleModal').modal();
 					});
@@ -193,7 +204,8 @@
 					$('.myForm #id').val('');
 					$('.myForm #name').val('');
 					$('.myForm #surname').val('');
-
+					$('.myForm #idUserApplication').val('');
+					
 					$('#myModal #delRef').attr('href', href);
 					$('.myForm #exampleModal').modal();
 				}

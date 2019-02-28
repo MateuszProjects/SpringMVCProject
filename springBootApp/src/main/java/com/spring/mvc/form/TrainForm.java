@@ -1,39 +1,25 @@
 package com.spring.mvc.form;
 
-import java.util.Date;
 
 import javax.xml.crypto.Data;
 
 public class TrainForm {
 	
 	private Integer id;
-	private Date startTime;
-	private Date endDate;
+	private String startTime;
+	private String endDate;
 	private String source;
 	private String destination;
-	private int seats;
-	private double cargoweight;
+	private String seats;
+	private String cargoweight;
 	private String clas;
-	private double price;
+	private String price;
 	
 	public TrainForm() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public TrainForm(Date startTime, Date endDate, String source, String destination, int seats, double cargoweight,
-			String clas, double price) {
-		super();
-		this.startTime = startTime;
-		this.endDate = endDate;
-		this.source = source;
-		this.destination = destination;
-		this.seats = seats;
-		this.cargoweight = cargoweight;
-		this.clas = clas;
-		this.price = price;
-	}
-	
 	public Integer getId() {
 		return id;
 	}
@@ -42,54 +28,71 @@ public class TrainForm {
 		this.id = id;
 	}
 
-	public Date getStartTime() {
+	public String getStartTime() {
 		return startTime;
 	}
-	public void setStartTime(Date startTime) {
+
+	public void setStartTime(String startTime) {
 		this.startTime = startTime;
 	}
-	public Date getEndDate() {
+
+	public String getEndDate() {
 		return endDate;
 	}
-	public void setEndDate(Date endDate) {
+
+	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
+
 	public String getSource() {
 		return source;
 	}
+
 	public void setSource(String source) {
 		this.source = source;
 	}
+
 	public String getDestination() {
 		return destination;
 	}
+
 	public void setDestination(String destination) {
 		this.destination = destination;
 	}
-	public int getSeats() {
+
+	public String getSeats() {
 		return seats;
 	}
-	public void setSeats(int seats) {
+
+	public void setSeats(String seats) {
 		this.seats = seats;
 	}
-	public double getCargoweight() {
+
+	public String getCargoweight() {
 		return cargoweight;
 	}
-	public void setCargoweight(double cargoweight) {
+
+	public void setCargoweight(String cargoweight) {
 		this.cargoweight = cargoweight;
 	}
+
 	public String getClas() {
 		return clas;
 	}
+
 	public void setClas(String clas) {
 		this.clas = clas;
 	}
-	public double getPrice() {
+
+	public String getPrice() {
 		return price;
 	}
-	public void setPrice(double price) {
+
+	public void setPrice(String price) {
 		this.price = price;
 	}
+
+
 
 	
 }

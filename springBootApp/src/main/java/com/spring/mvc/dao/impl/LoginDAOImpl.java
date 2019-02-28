@@ -79,6 +79,12 @@ public class LoginDAOImpl implements LoginDAO{
 			e.printStackTrace();
 		}
 		
+	}
+
+	@Override
+	public TblUser getOneUser(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
 	}	
 	
 }

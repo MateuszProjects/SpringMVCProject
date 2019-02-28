@@ -13,8 +13,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.spring.mvc.dao.AccountDAO;
 import com.spring.mvc.dao.LoginDAO;
 import com.spring.mvc.entities.TblUser;
+import com.spring.mvc.entities.TblUserapplication;
 import com.spring.mvc.model.UserForm;
 import com.spring.mvc.service.LoginService;
 
@@ -25,6 +27,8 @@ public class LoginServiceImpl implements UserDetailsService, LoginService {
 	@Autowired
 	private LoginDAO loginDAO;
 	
+	@Autowired
+	private AccountDAO accountDAO;
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -40,6 +44,7 @@ public class LoginServiceImpl implements UserDetailsService, LoginService {
 		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 		
 		TblUser tbluser = new TblUser();
+		TblUserapplication tblUserapplication = new TblUserapplication();
 		
 		tbluser.setEnabled(1);
 		tbluser.setPassword(bCryptPasswordEncoder.encode(userForm.getPassword()));
@@ -48,6 +53,15 @@ public class LoginServiceImpl implements UserDetailsService, LoginService {
 		tbluser.setCountry(userForm.getCountry());
 		tbluser.setRole("ROLE_USER");
 		
-		loginDAO.save(tbluser);
+		tblUserapplication.setTblUser(tbluser);
+
+		try {
+			loginDAO.save(tbluser);
+			accountDAO.save(tblUserapplication);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		
 	}	
 }

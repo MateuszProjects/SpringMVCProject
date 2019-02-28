@@ -3,6 +3,7 @@ package com.spring.mvc.form;
 public class PersonForm {
 
 	private Integer id;
+	private Integer cargoId;
 	private String name;
 	private String surname;
 	private String email;
@@ -49,6 +50,14 @@ public class PersonForm {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Integer getCargoId() {
+		return cargoId;
+	}
+
+	public void setCargoId(Integer cargoId) {
+		this.cargoId = cargoId;
 	}
 	
 	

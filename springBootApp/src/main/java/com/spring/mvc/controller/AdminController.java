@@ -227,7 +227,9 @@ public class AdminController {
 		if (addressForm.getEmplId() != null)
 			tblEmployee = employeeService.getOne(addressForm.getEmplId());
 
-		tblAddress.setNumber(Integer.parseInt(addressForm.getNumber()));
+		if (addressForm.getNumber() != null)
+			tblAddress.setNumber(Integer.parseInt(addressForm.getNumber()));
+
 		tblAddress.setProvince(addressForm.getPrivince());
 		tblAddress.setRegion(addressForm.getRegion());
 		tblAddress.setStreet(addressForm.getStreet());
@@ -286,8 +288,10 @@ public class AdminController {
 		if (luggageForm.getId() != null)
 			tblLuggage.setLuggageid(luggageForm.getId());
 
-		Date luggageDate = new SimpleDateFormat("dd-MM-yyyy").parse(luggageForm.getContentdesc());
-		tblLuggage.setContentdesc(luggageDate);
+		if (luggageForm.getContentdesc() != null) {
+			Date luggageDate = new SimpleDateFormat("dd-MM-yyyy").parse(luggageForm.getContentdesc());
+			tblLuggage.setContentdesc(luggageDate);
+		}
 		tblLuggage.setWeight(Double.parseDouble(luggageForm.getWeight()));
 
 		try {
@@ -333,10 +337,64 @@ public class AdminController {
 
 		modelAndView.setViewName("admin/cargo");
 		TblCargo tblCargo = new TblCargo();
-		
-		
+
+		TblCompany tblCompany = null;
+		TblEmployee tblEmployee = null;
+		TblShip tblShip = null;
+		TblFlight tblFlight = null;
+		TblTrain tblTrain = null;
+		TblCargotype tblCargotype = null;
+
 		if (cargoForm.getId() != null)
 			tblCargo.setCargoid(cargoForm.getId());
+
+		if (cargoForm.getCompanyId() != null)
+			tblCompany = companyService.getOne(cargoForm.getCompanyId());
+
+		if (cargoForm.getEmplId() != null)
+			tblEmployee = employeeService.getOne(cargoForm.getEmplId());
+
+		if (cargoForm.getShipId() != null)
+			tblShip = shipService.getOne(cargoForm.getShipId());
+
+		if (cargoForm.getTrainId() != null)
+			tblTrain = trainService.getOne(cargoForm.getTrainId());
+
+		if (cargoForm.getTypeCargoTypeId() != null)
+			tblCargotype = cargoTypeServis.getOne(cargoForm.getTypeCargoTypeId());
+
+		if (cargoForm.getTrainId() != null)
+			tblTrain = trainService.getOne(cargoForm.getTrainId());
+		
+		if (cargoForm.getFlightId() != null)
+			tblFlight = flightService.getOne(cargoForm.getFlightId());
+
+		if (cargoForm.getDestination() != null)
+			tblCargo.setDestlocation(cargoForm.getDestination());
+
+		if (cargoForm.getWeight() != null)
+			tblCargo.setWeight(cargoForm.getWeight());
+
+		if (cargoForm.getSourceDestination() != null)
+			tblCargo.setSourcelocation(cargoForm.getSourceDestination());
+
+		if (tblCompany != null)
+			tblCargo.setTblCompany(tblCompany);
+
+		if (tblEmployee != null)
+			tblCargo.setTblEmployee(tblEmployee);
+
+		if (tblCargotype != null)
+			tblCargo.setTblCargotype(tblCargotype);
+
+		if (tblShip != null)
+			tblCargo.setTblShip(tblShip);
+
+		if (tblFlight != null)
+			tblCargo.setTblFlight(tblFlight);
+
+		if (tblTrain != null)
+			tblCargo.setTblTrain(tblTrain);
 
 		try {
 			cargoService.save(tblCargo);
@@ -520,8 +578,6 @@ public class AdminController {
 		modelAndView.addObject("employeeAdmin", employeeService.findAll(PageRequest.of(page, 4)));
 		modelAndView.addObject("applicationAdmin", accountService.findAll());
 
-		System.out.println("accountService: " + accountService.findAll().get(0).getUserApplicationid());
-
 		modelAndView.setViewName("admin/employee");
 		return modelAndView;
 	}
@@ -670,14 +726,18 @@ public class AdminController {
 
 		tblTrain.setDestination(trainForm.getDestination());
 
-		Date endDate = new SimpleDateFormat("dd-MM-yyyy").parse(trainForm.getEndDate());
-		Date startDate = new SimpleDateFormat("dd-MM-yyyy").parse(trainForm.getStartTime());
+		if (trainForm.getEndDate() != null) {
+			Date endDate = new SimpleDateFormat("dd-MM-yyyy").parse(trainForm.getEndDate());
+			tblTrain.setEnddate(endDate);
+		}
 
+		if (trainForm.getStartTime() != null) {
+			Date startDate = new SimpleDateFormat("dd-MM-yyyy").parse(trainForm.getStartTime());
+			tblTrain.setStartdate(startDate);
+		}
 		tblTrain.setPrice(Double.parseDouble(trainForm.getPrice()));
 		tblTrain.setSeats(Integer.parseInt(trainForm.getSeats()));
 		tblTrain.setSource(trainForm.getSource());
-		tblTrain.setEnddate(endDate);
-		tblTrain.setStartdate(startDate);
 
 		try {
 			trainService.save(tblTrain);
@@ -702,9 +762,7 @@ public class AdminController {
 	public ModelAndView getShip(@RequestParam(defaultValue = "0") int page) {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("data", shipService.findAll(PageRequest.of(page, 4)));
-
 		modelAndView.addObject("currentPage", page);
-
 		modelAndView.setViewName("admin/ship");
 
 		return modelAndView;
@@ -726,9 +784,7 @@ public class AdminController {
 			"application/x-www-form-urlencoded;charset=UTF-8" })
 	public ModelAndView saveUpdateShip(@ModelAttribute("shipForm") ShipForm shipForm) {
 		ModelAndView modelAndView = new ModelAndView();
-
 		modelAndView.addObject("data", shipService.findAll(PageRequest.of(0, 4)));
-
 		TblShip tblShip = new TblShip();
 
 		if (shipForm.getId() != null)
@@ -798,10 +854,10 @@ public class AdminController {
 			tblPerson = personService.getOne(typeForm.getCustomerId());
 
 		tblType.setType(typeForm.getType());
-		
+
 		if (tblPerson != null)
 			tblType.setTblPerson(tblPerson);
-		
+
 		try {
 			typeService.save(tblType);
 		} catch (Exception e) {

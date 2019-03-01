@@ -7,6 +7,52 @@ public class CargoForm {
 	private Integer typeCargoTypeId;
 	private Integer shipId;
 	private Integer trainId;
+	private Integer flightId;
+	
+	public Integer getFlightId() {
+		return flightId;
+	}
+
+	public void setFlightId(Integer flightId) {
+		this.flightId = flightId;
+	}
+
+	private String weight;
+	private String sourceDestination;
+	private String destination;
+	private String fee;
+
+	public String getWeight() {
+		return weight;
+	}
+
+	public void setWeight(String weight) {
+		this.weight = weight;
+	}
+
+	public String getSourceDestination() {
+		return sourceDestination;
+	}
+
+	public void setSourceDestination(String sourceDestination) {
+		this.sourceDestination = sourceDestination;
+	}
+
+	public String getDestination() {
+		return destination;
+	}
+
+	public void setDestination(String destination) {
+		this.destination = destination;
+	}
+
+	public String getFee() {
+		return fee;
+	}
+
+	public void setFee(String fee) {
+		this.fee = fee;
+	}
 
 	public CargoForm() {
 		super();

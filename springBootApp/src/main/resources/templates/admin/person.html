@@ -125,10 +125,17 @@
 														name="surname" value="" />
 												</div>
 												<div class="form-group">
-													<label for="email" class="col-form-label">EMAIL:</label>
-													<input type="text" class="form-control" id="email"
-														name="email" value="" />
+													<label for="email" class="col-form-label">EMAIL:</label> <input
+														type="text" class="form-control" id="email" name="email"
+														value="" />
 												</div>
+												<select class="form-control" id=emplId
+													name="emplId">
+													<option value="">Select Employee</option>
+													<option th:each="personTypeObj : ${personType}"
+														th:value="${personTypeObj.customerid}"
+														th:text="${personTypeObj.customerid}"></option>
+												</select>
 											</div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-secondary"

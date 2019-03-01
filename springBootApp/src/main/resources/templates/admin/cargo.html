@@ -176,6 +176,53 @@
 													<input type="text" class="form-control" id="destination"
 														name="destination" value="" />
 												</div>
+												<select class="form-control" id=companyId
+													name="companyId">
+													<option value="">Select Company</option>
+													<option th:each="companyObj : ${company}"
+														th:value="${companyObj.companyid}"
+														th:text="${companyObj.companyid}"></option>
+												</select> 
+												
+												<select class="form-control" id=emplId
+													name="emplId">
+													<option value="">Select Employee</option>
+													<option th:each="employeeObj : ${employee}"
+														th:value="${employeeObj.emplid}"
+														th:text="${employeeObj.emplid}"></option>
+												</select> 
+												
+												<select class="form-control" id=shipId
+													name=shipId>
+													<option value="">Select Ship</option>
+													<option th:each="shipObj : ${ship}"
+														th:value="${shipObj.shipid}"
+														th:text="${shipObj.shipid}"></option>
+												</select> 
+												
+												<select class="form-control" id=flightId
+													name="flightId">
+													<option value="">Select Flight</option>
+													<option th:each="flightObj : ${flight}"
+														th:value="${flightObj.flightid}"
+														th:text="${flightObj.flightid}"></option>
+												</select> 
+												
+												<select class="form-control" id=trainId
+													name="trainId">
+													<option value="">Select Train</option>
+													<option th:each="trainObj : ${train}"
+														th:value="${trainObj.trainid}"
+														th:text="${trainObj.trainid}"></option>
+												</select> 
+												
+												<select class="form-control" id=typeCargoTypeId
+													name="typeCargoTypeId">
+													<option value="">Select CargoType</option>
+													<option th:each="cargoTypeObj : ${cargoType}"
+														th:value="${cargoTypeObj.cargotypeid}"
+														th:text="${cargoTypeObj.cargotypeid}"></option>
+												</select>
 
 											</div>
 											<div class="modal-footer">
